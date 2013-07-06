@@ -1,0 +1,11 @@
+﻿## Interface: 50200
+
+## Title: Fleischpflanzerl
+## Notes: Schmeckt am besten mit Kartoffelsalat!
+## Author: Stanzilla
+## X-Credits: Your mum
+## Version: 1.4
+## X-Email: staneck AT gmail DOT com
+## X-Category: Interface Enhancements
+
+Modules.xml

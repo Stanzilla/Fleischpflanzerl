@@ -1,0 +1,20 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+<Script file="Modules\Buffs.lua"/>
+<Script file="Modules\ChatTweaks.lua"/>
+<Script file="Modules\ChatIcons.lua"/>
+<Script file="Modules\CVars.lua"/>
+<!-- <Script file="Modules\DBW.lua"/> -->
+<!-- <Script file="Modules\ChatFrames.lua"/> -->
+<Script file="Modules\Minimap.lua"/>
+<Script file="Modules\Reputation.lua"/>
+<Script file="Modules\Slashhandler.lua"/>
+<!--<Script file="Modules\Silencer.lua"/> -->
+<!-- <Script file="Modules\StrataFix.lua"/> -->
+<!-- <Script file="Modules\Tooltips.lua"/> -->
+<Script file="Modules\Vendor.lua"/>
+<!-- <Script file="Modules\UIScale.lua"/> -->
+
+</Ui>
+
