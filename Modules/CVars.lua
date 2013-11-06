@@ -2,19 +2,19 @@ local sCheatsCV = CreateFrame("Frame")
 
 sCheatsCV:RegisterEvent("VARIABLES_LOADED")
 sCheatsCV:SetScript("OnEvent", function()
-    	SetCVar("Autointeract", 0)
-    	SetCVar("cameraDistanceMax", 50) 	    	 			-- Camera's max zoom out Distance. 50 is max.
+
+    SetCVar("Autointeract", 0)
+    SetCVar("cameraDistanceMax", 50) 	    	 			-- Camera's max zoom out Distance. 50 is max.
 	SetCVar("cameraDistanceMaxFactor", 3.4) 	 			-- Sets the factor by which cameraDistanceMax is multiplied.
 	SetCVar("ShowClassColorInNameplate", 1) 	 			-- Turns on class coloring in nameplates.
 	SetCVar("bloattest", 0)
 	SetCVar("bloatnameplates", 0)
-	SetCVar("bloatthreat", 0) 					 	-- Might make nameplates larger but it fixes the disappearing ones.
-	SetCVar("consolidateBuffs", 0) 			 		-- Turns off Consolidated Buffs.
-	SetCVar("screenshotQuality", 10) 			 		-- Screenshot quality (0-10)
-	--SetCVar("displaySpellActivationOverlays", 0) 			-- Turns off default Blizzard Spell Alerts
-	SetCVar("useUiScale", 0)					 	-- Turns off UI scaling
-	SetCVar("checkAddonVersion", 0) 			 		-- Load out-of-date addons
-	SetCVar("autoLootDefault", 1)				 		-- Enable autolooting
+	SetCVar("bloatthreat", 0) 					 			-- Might make nameplates larger but it fixes the disappearing ones.
+	SetCVar("consolidateBuffs", 0) 			 				-- Turns off Consolidated Buffs.
+	SetCVar("screenshotQuality", 10) 			 			-- Screenshot quality (0-10)
+	SetCVar("useUiScale", 0)					 			-- Turns off UI scaling
+	SetCVar("checkAddonVersion", 0) 			 			-- Load out-of-date addons
+	SetCVar("autoLootDefault", 1)				 			-- Enable autolooting
 	SetCVar("profanityFilter", 0)
 	SetCVar("BlockTrades", 0)
 	

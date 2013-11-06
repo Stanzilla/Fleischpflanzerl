@@ -3,6 +3,7 @@ FPMinimap:SetScript('OnEvent', function(self, event, ...) self[event](self, even
 FPMinimap:RegisterEvent('ADDON_LOADED')
 --FPMinimap:RegisterEvent('PLAYER_ENTERING_WORLD')
 FPMinimap:RegisterEvent('ZONE_CHANGED_NEW_AREA')
+FPMinimap:RegisterEvent('INSTANCE_ENCOUNTER_ENGAGE_UNIT')
 
 local total = 0
 local myfont = NAMEPLATE_FONT 
@@ -12,7 +13,15 @@ local classColor = CUSTOM_CLASS_COLORS and
 local color = {r=255/255, g=255/255, b=255/255 } -- own textcolor
 
 function FPMinimap:ZONE_CHANGED_NEW_AREA()
-    SetMapToCurrentZone()
+    SetMapToCurrentZone()    
+    if OQMarquee then
+        OQMarquee:Hide()
+    else end
+end
+function FPMinimap:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
+    if OQMarquee then
+        OQMarquee:Hide()
+    else end
 end
 
 local function SetFont(obj, font, size, style, r, g, b, sr, sg, sb, sox, soy)
@@ -26,7 +35,7 @@ end
 function FPMinimap:ADDON_LOADED(self)
     CompactRaidFrameContainer:UnregisterAllEvents()
     Minimap:SetFrameStrata("LOW")
-    
+
     MinimapZoneText:Hide()
     MinimapZoneTextButton:Hide()
 
@@ -172,7 +181,7 @@ end
     TimeManagerClockButton:ClearAllPoints()
     TimeManagerClockButton:SetWidth(40)
     TimeManagerClockButton:SetHeight(15)
-    TimeManagerClockButton:SetPoint('BOTTOMLEFT', Minimap, 2, 3)
+    TimeManagerClockButton:SetPoint('BOTTOMLEFT', Minimap, 2, 2)
 
     TimeManagerAlarmFiredTexture.Show = function()
         TimeManagerClockTicker:SetTextColor(1, 0, 1)
