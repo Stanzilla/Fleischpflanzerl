@@ -31,11 +31,8 @@ end
 function FPMinimap:ADDON_LOADED(self)
     Minimap:SetFrameStrata("LOW")
 
-    --MinimapZoneText:Hide()
-    --MinimapZoneTextButton:Hide()
-
     MiniMapTracking:Hide()
-    
+
     MiniMapChallengeMode:ClearAllPoints()
     MiniMapChallengeMode:SetPoint("BOTTOMRIGHT", Minimap, "TOPRIGHT", -2, -2)
 
@@ -200,20 +197,13 @@ rdt:SetPoint('TOP', Minimap, 0, -3.5)
 rdt:SetFont(myfont, 16, 'OUTLINE')
 rdt:SetTextColor(1, 1, 1)
 
-rd:SetScript("OnEvent", function()
+rd:SetScript("OnEvent", function()    
 
     if IsInInstance() then
         FPMinimap.Coord.Text:SetText()
         FPMinimap.Coord:SetScript('OnUpdate', nil)
     else
         FPMinimap.Coord:SetScript('OnUpdate', updatefunc)
-    end
-
-    if GarrisonLandingPageMinimapButton then
-        GarrisonLandingPageMinimapButton:Hide()
-        GarrisonLandingPageMinimapButton.ClearAllPoints = dummy
-        GarrisonLandingPageMinimapButton.SetPoint = dummy
-        GarrisonLandingPageMinimapButton:SetAlpha(0)
     end
 
     local _, _, difficulty, _, maxPlayers = GetInstanceInfo()
@@ -271,5 +261,4 @@ rd:SetScript("OnEvent", function()
     end
 end)
 
-
---hooksecurefunc("OrderHall_CheckCommandBar", function() if OrderHallCommandBar then OrderHallCommandBar:Hide() end end)
+hooksecurefunc("OrderHall_CheckCommandBar", function() if OrderHallCommandBar then OrderHallCommandBar:Hide() end end)

@@ -7,9 +7,6 @@ StanUICV:SetScript("OnEvent", function()
     SetCVar("cameraDistanceMax", 48) 	    	 			-- Camera's max zoom out Distance. 50 is max.
 	SetCVar("cameraDistanceMaxFactor", 3.4) 		 		-- Sets the factor by which cameraDistanceMax is multiplied.
 	SetCVar("ShowClassColorInNameplate", 1) 	 			-- Turns on class coloring in nameplates.
-	SetCVar("bloatnameplates", 0)
-	SetCVar("bloatthreat", 0)				 				-- Might make nameplates larger but it fixes the disappearing ones.
-	SetCVar("consolidateBuffs", 0)			 				-- Turns off Consolidated Buffs.
 	SetCVar("screenshotQuality", 10) 			 			-- Screenshot quality (0-10)
 	SetCVar("useUiScale", 0)					 			-- Turns off UI scaling
 	SetCVar("checkAddonVersion", 0) 			 			-- Load out-of-date addons
