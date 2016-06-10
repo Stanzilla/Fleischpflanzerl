@@ -1,10 +1,10 @@
-﻿## Interface: 50400
+﻿## Interface: 60100
 
 ## Title: Fleischpflanzerl
 ## Notes: Nom nom nom!
 ## Author: Stanzilla
 ## X-Credits: Your mum
-## Version: 1.5
+## Version: 1.6
 ## X-Email: staneck AT gmail DOT com
 ## X-Category: Interface Enhancements
 

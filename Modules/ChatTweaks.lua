@@ -1,46 +1,4 @@
---[[ Revert some globals and settings back to the pre-3.3.5 defaults 
-
-for i=1,NUM_CHAT_WINDOWS do
-	local tab = _G["ChatFrame"..i.."Tab"]
-	tab.noMouseAlpha = 0
-	tab:SetAlpha(0)
-end
-
-CHAT_FRAME_FADE_OUT_TIME = 0
--- Seconds to wait before fading out chat frames the mouse moves out of.
--- Default is 2.
-
-CHAT_TAB_HIDE_DELAY = 0
--- Seconds to wait before fading out chat tabs the mouse moves out of.
--- Default is 1.
-
-CHAT_FRAME_TAB_SELECTED_MOUSEOVER_ALPHA = 1
-CHAT_FRAME_TAB_SELECTED_NOMOUSE_ALPHA = 0
--- Opacity of the currently selected chat tab.
--- Defaults are 1 and 0.4.
-
-CHAT_FRAME_TAB_ALERTING_MOUSEOVER_ALPHA = 1
-CHAT_FRAME_TAB_ALERTING_NOMOUSE_ALPHA = 0
--- Opacity of currently alerting chat tabs.
--- Defaults are 1 and 1.
-
-CHAT_FRAME_TAB_NORMAL_MOUSEOVER_ALPHA = 1
-CHAT_FRAME_TAB_NORMAL_NOMOUSE_ALPHA = 0
--- Opacity of non-selected, non-alerting chat tabs.
--- Defaults are 0.6 and 0.2.
-]]--
-
---[[  Profanity Filter Disabler 
-local frame = CreateFrame("FRAME", "DisableProfanityFilter")
-frame:RegisterEvent("PLAYER_ENTERING_WORLD")
-local function eventHandler(self, event, ...)
-	BNSetMatureLanguageFilter(false)
-	frame:UnregisterEvent("PLAYER_ENTERING_WORLD")
-end
-frame:SetScript("OnEvent", eventHandler)
-]]--
-
---[[ Fix the broken ass fading of the chat frames ]]--
+-- Fix the broken ass fading of the chat frames
 hooksecurefunc("FCF_FadeOutChatFrame", function(chatFrame)
 		local frameName = chatFrame:GetName()
 
@@ -68,7 +26,7 @@ hooksecurefunc("FCF_FadeOutChatFrame", function(chatFrame)
 			UIFrameFadeRemoveFrame(chatFrame.buttonFrame)
 			chatFrame.buttonFrame:SetAlpha(0.2)
 		end
-	end)
+end)
 hooksecurefunc("FCFTab_UpdateAlpha", function(chatFrame)
 	local chatTab = _G[chatFrame:GetName().."Tab"]
 	if not chatFrame.hasBeenFaded and not chatTab.alerting then
@@ -86,14 +44,49 @@ end
 CHAT_TAB_HIDE_DELAY = 0
 CHAT_FRAME_TAB_ALERTING_MOUSEOVER_ALPHA = 1
 CHAT_FRAME_TAB_ALERTING_NOMOUSE_ALPHA = 0
+SCREENSHOT_SUCCESS = ""
 
 
--- Making the chat background invisibile
-for index, value in ipairs(CHAT_FRAME_TEXTURES) do
-	for i=1, NUM_CHAT_WINDOWS, 1 do
-		_G["ChatFrame" .. i .. value]:Hide();
-		_G["ChatFrame" .. i .. value].Show = function() end;
-		_G["ChatFrame" .. i .. value]:SetAlpha(0);
-		_G["ChatFrame" .. i .. value].SetAlpha = function() end;
+-- -- Making the chat background invisibile
+-- for index, value in ipairs(CHAT_FRAME_TEXTURES) do
+-- 	for i=1, NUM_CHAT_WINDOWS, 1 do
+-- 		_G["ChatFrame" .. i .. value]:Hide();
+-- 		_G["ChatFrame" .. i .. value].Show = function() end;
+-- 		_G["ChatFrame" .. i .. value]:SetAlpha(0);
+-- 		_G["ChatFrame" .. i .. value].SetAlpha = function() end;
+-- 	end
+-- end
+
+local function RemoveCurrentRealmName(self, event, msg, author, ...)   --code from Epicgrim remade by Tukz
+	local realmName = string.gsub(GetRealmName(), " ", "")
+	if msg:find("-" .. realmName) then
+		return false, gsub(msg, "%-"..realmName, ""), author, ...
 	end
+end
+
+ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", RemoveCurrentRealmName)
+
+local raidIcons = {
+    ["%{[sS][tT][eE][rR][nN]%}"] = "{rt1}",
+    ["%{[kK][rR][eE][iI][sS]%}"] = "{rt2}",
+    ["%{[dD][iI][aA][mM][aA][nN][tT]%}"] = "{rt3}",
+    ["%{[dD][rR][eE][iI][eE][cC][kK]%}"] = "{rt4}",
+    ["%{[mM][oO][nN][dD]%}"] = "{rt5}",
+    ["%{[qQ][uU][aA][dD][rR][aA][tT]%}"] = "{rt6}",
+    ["%{[kK][rR][eE][uU][zZ]%}"] = "{rt7}",
+    -- \195\132 Ä, \195\164 ä
+    ["%{[tT][oO][tT][eE][nN][sS][cC][hH]\195[\132\164][dD][eE][lL]%}"] = "{rt8}",
+}
+ 
+-- raid icons
+local function filter(self, event, msg, ...)
+    if msg then
+        for k, v in pairs(raidIcons) do
+            msg = msg:gsub(k, v)
+        end
+    end
+    return false, msg, ...
+end
+for _,event in pairs{"SAY", "YELL", "GUILD", "GUILD_OFFICER", "WHISPER", "WHISPER_INFORM", "PARTY", "PARTY_LEADER", "RAID", "RAID_LEADER", "INSTANCE_CHAT", "INSTANCE_CHAT_LEADER", "BATTLEGROUND", "BATTLEGROUND_LEADER", "CHANNEL"} do
+        ChatFrame_AddMessageEventFilter("CHAT_MSG_"..event, filter)
 end

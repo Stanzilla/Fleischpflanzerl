@@ -1,27 +1,23 @@
+local addon = ...
 local FPMinimap = CreateFrame('Frame', 'FPMinimap', UIParent)
 FPMinimap:SetScript('OnEvent', function(self, event, ...) self[event](self, event, ...) end)
 FPMinimap:RegisterEvent('ADDON_LOADED')
---FPMinimap:RegisterEvent('PLAYER_ENTERING_WORLD')
+FPMinimap:RegisterEvent('PLAYER_ENTERING_WORLD')
 FPMinimap:RegisterEvent('ZONE_CHANGED_NEW_AREA')
-FPMinimap:RegisterEvent('INSTANCE_ENCOUNTER_ENGAGE_UNIT')
+--FPMinimap:RegisterEvent('INSTANCE_ENCOUNTER_ENGAGE_UNIT')
 
 local total = 0
-local myfont = NAMEPLATE_FONT 
+--local myfont = NAMEPLATE_FONT
+local myfont = "Interface\\AddOns\\CustomMedia\\Media\\Fonts\\myriadprosemibold.ttf"
 local classColor = CUSTOM_CLASS_COLORS and
-        CUSTOM_CLASS_COLORS[select(2, UnitClass('player'))] or 
+        CUSTOM_CLASS_COLORS[select(2, UnitClass('player'))] or
         RAID_CLASS_COLORS[select(2, UnitClass('player'))]
 local color = {r=255/255, g=255/255, b=255/255 } -- own textcolor
 
 function FPMinimap:ZONE_CHANGED_NEW_AREA()
-    SetMapToCurrentZone()    
-    if OQMarquee then
-        OQMarquee:Hide()
-    else end
+    SetMapToCurrentZone()
 end
 function FPMinimap:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
-    if OQMarquee then
-        OQMarquee:Hide()
-    else end
 end
 
 local function SetFont(obj, font, size, style, r, g, b, sr, sg, sb, sox, soy)
@@ -33,29 +29,28 @@ local function SetFont(obj, font, size, style, r, g, b, sr, sg, sb, sox, soy)
 end
 
 function FPMinimap:ADDON_LOADED(self)
-    CompactRaidFrameContainer:UnregisterAllEvents()
     Minimap:SetFrameStrata("LOW")
 
-    MinimapZoneText:Hide()
-    MinimapZoneTextButton:Hide()
+    --MinimapZoneText:Hide()
+    --MinimapZoneTextButton:Hide()
 
-    MiniMapTracking:Hide()    
+    MiniMapTracking:Hide()
     
     MiniMapChallengeMode:ClearAllPoints()
     MiniMapChallengeMode:SetPoint("BOTTOMRIGHT", Minimap, "TOPRIGHT", -2, -2)
-    
-    QueueStatusMinimapButtonBorder:SetTexture() 
+
+    QueueStatusMinimapButtonBorder:SetTexture()
     QueueStatusMinimapButton:ClearAllPoints()
     QueueStatusMinimapButton:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -2, 0)
-    
-    GuildInstanceDifficulty:ClearAllPoints()      
+
+    GuildInstanceDifficulty:ClearAllPoints()
     GuildInstanceDifficulty:SetParent(Minimap)
     GuildInstanceDifficulty:SetPoint('TOPLEFT', Minimap, 1, 5)
-    GuildInstanceDifficulty:UnregisterAllEvents()    
+    GuildInstanceDifficulty:UnregisterAllEvents()
     GuildInstanceDifficulty:Hide()
 
     MiniMapInstanceDifficulty:ClearAllPoints()
-    MiniMapInstanceDifficulty:SetPoint('TOPLEFT', Minimap, 1, 5)    
+    MiniMapInstanceDifficulty:SetPoint('TOPLEFT', Minimap, 1, 5)
     MiniMapInstanceDifficulty:UnregisterAllEvents()
     MiniMapInstanceDifficulty:Hide()
 
@@ -74,16 +69,16 @@ function FPMinimap:ADDON_LOADED(self)
 
     MiniMapVoiceChatFrame:Hide()
     MinimapNorthTag:SetAlpha(0)
-    
+
     WorldStateAlwaysUpFrame:ClearAllPoints()
     WorldStateAlwaysUpFrame:SetPoint("TOP", UIParent, "TOP", 0, -40)
-    
+
     SetFont(FriendsFont_Large,          myfont, 12, nil, nil, nil, nil, nil, nil, nil, nil, nil)
     SetFont(FriendsFont_Normal,         myfont, 12, nil, nil, nil, nil, nil, nil, nil, nil, nil)
     SetFont(FriendsFont_Small,          myfont, 11, nil, nil, nil, nil, nil, nil, nil, nil, nil)
     SetFont(FriendsFont_UserText,       myfont, 11, nil, nil, nil, nil, nil, nil, nil, nil, nil)
-    
-end 
+
+end
 
 --[[ Tracking Menu ]]--
 
@@ -96,26 +91,27 @@ Minimap:SetScript("OnMouseUp",function(this,button,...)
     end
 end)
 
---[[ Coordinates Module 
+--[[ Coordinates Module ]]--
 
     FPMinimap.Coord = CreateFrame('Button', nil, Minimap)
-    FPMinimap.Coord:SetPoint('TOPLEFT', Minimap, -3.5, -3.5)
     FPMinimap.Coord:SetWidth(40)
     FPMinimap.Coord:SetHeight(14)
+    FPMinimap.Coord:SetPoint('BOTTOMRIGHT', Minimap, -10, 2)
     FPMinimap.Coord:RegisterForClicks('AnyUp')
-    FPMinimap.Coord:SetAlpha(0.5)
+    FPMinimap.Coord:SetAlpha(0.6)
 
     FPMinimap.Coord.Text = FPMinimap.Coord:CreateFontString(nil, 'OVERLAY')
     FPMinimap.Coord.Text:SetPoint('CENTER', FPMinimap.Coord)
-    FPMinimap.Coord.Text:SetFont(myfont, 13, 'OUTLINE')
-    FPMinimap.Coord.Text:SetTextColor(1, 1, 1)  
+    FPMinimap.Coord.Text:SetFont(myfont, 16, 'OUTLINE')
+    FPMinimap.Coord.Text:SetTextColor(1, 1, 1)
+    FPMinimap.Coord.Text:SetShadowOffset(0, 0)
     FPMinimap.Coord:SetScript('OnClick', function() ToggleFrame(WorldMapFrame) end)
 
 local function updatefunc(self, elapsed)
     total = total + elapsed
     if(total > 0.25) then
         local x, y = GetPlayerMapPosition('player')
-        self.Text:SetFormattedText('%.0f,%.0f', x * 100, y * 100)
+        self.Text:SetFormattedText('%.1f,%.1f', x * 100, y * 100)
         total = 0
     end
 end
@@ -126,12 +122,11 @@ function FPMinimap:PLAYER_ENTERING_WORLD()
         self.Coord:SetScript('OnUpdate', nil)
     else
         self.Coord:SetScript('OnUpdate', updatefunc)
-    end
-end 
-]]--
+    end    
+end
 
 
---[[ Calendar Button Module ]]-- 
+--[[ Calendar Button Module ]]--
 
 for i = 1, select('#', GameTimeFrame:GetRegions()) do
     local texture = select(i, GameTimeFrame:GetRegions())
@@ -158,14 +153,14 @@ for _, texture in pairs({
     texture.Show = function()
     GameTimeFrame:GetFontString():SetTextColor(1, 0, 1)
     end
-    
-    texture.Hide = function() 
+
+    texture.Hide = function()
     GameTimeFrame:GetFontString():SetTextColor(1, 1, 1) --(classColor.r, classColor.g, classColor.b)
     GameTimeFrame:GetFontString():SetAlpha(0.6)
     end
 end
-    
-    
+
+
 --[[ Clock Styling Module ]]--
 
 if (not IsAddOnLoaded('Blizzard_TimeManager')) then
@@ -176,7 +171,7 @@ end
     TimeManagerClockTicker:SetTextColor(1, 1, 1) --(classColor.r, classColor.g, classColor.b)
     TimeManagerClockTicker:SetAlpha(0.6)
     TimeManagerClockTicker:SetPoint('BOTTOMLEFT', TimeManagerClockButton)
-    
+
     TimeManagerClockButton:GetRegions():Hide()
     TimeManagerClockButton:ClearAllPoints()
     TimeManagerClockButton:SetWidth(40)
@@ -187,7 +182,7 @@ end
         TimeManagerClockTicker:SetTextColor(1, 0, 1)
     end
 
-    TimeManagerAlarmFiredTexture.Hide = function() 
+    TimeManagerAlarmFiredTexture.Hide = function()
         TimeManagerClockTicker:SetTextColor(classColor.r, classColor.g, classColor.b)
     end
 
@@ -198,6 +193,7 @@ rd:SetSize(24, 8)
 rd:RegisterEvent("PLAYER_ENTERING_WORLD")
 rd:RegisterEvent("PLAYER_DIFFICULTY_CHANGED")
 rd:RegisterEvent("GUILD_PARTY_STATE_UPDATED")
+rd:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 
 local rdt = rd:CreateFontString(nil, "OVERLAY")
 rdt:SetPoint('TOP', Minimap, 0, -3.5)
@@ -205,8 +201,23 @@ rdt:SetFont(myfont, 16, 'OUTLINE')
 rdt:SetTextColor(1, 1, 1)
 
 rd:SetScript("OnEvent", function()
-    local _, _, difficulty, _, maxPlayers = GetInstanceInfo()
 
+    if IsInInstance() then
+        FPMinimap.Coord.Text:SetText()
+        FPMinimap.Coord:SetScript('OnUpdate', nil)
+    else
+        FPMinimap.Coord:SetScript('OnUpdate', updatefunc)
+    end
+
+    if GarrisonLandingPageMinimapButton then
+        GarrisonLandingPageMinimapButton:Hide()
+        GarrisonLandingPageMinimapButton.ClearAllPoints = dummy
+        GarrisonLandingPageMinimapButton.SetPoint = dummy
+        GarrisonLandingPageMinimapButton:SetAlpha(0)
+    end
+
+    local _, _, difficulty, _, maxPlayers = GetInstanceInfo()
+    rdt:SetFont(myfont, 16, 'OUTLINE')
     if difficulty == 0 then
         rdt:SetText("")
     elseif maxPlayers == 1 then
@@ -233,6 +244,22 @@ rd:SetScript("OnEvent", function()
         rdt:SetText("3 H")
     elseif difficulty == 12 then
         rdt:SetText("3")
+    elseif difficulty == 13 then
+        rdt:SetText("")
+    elseif difficulty == 14 then
+        rdt:SetText("N") -- Flex
+    elseif difficulty == 15 then
+        rdt:SetText("H") -- Flex
+    elseif difficulty == 16 then
+        rdt:SetText("M")
+    elseif difficulty == 17 then
+        rdt:SetText("LFR")
+    elseif difficulty == 18 then
+        rdt:SetText("Event")
+    elseif difficulty == 19 then
+        rdt:SetText("Event")
+    elseif difficulty == 20 then
+        rdt:SetText("Event")
     end
 
     if GuildInstanceDifficulty:IsShown() then
@@ -243,3 +270,6 @@ rd:SetScript("OnEvent", function()
         rdt:SetAlpha(0.6)
     end
 end)
+
+
+--hooksecurefunc("OrderHall_CheckCommandBar", function() if OrderHallCommandBar then OrderHallCommandBar:Hide() end end)

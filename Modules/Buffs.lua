@@ -1,29 +1,29 @@
--- --BUFF_FLASH_TIME_ON = 0.8
--- --BUFF_FLASH_TIME_OFF = 0.8
--- --BUFF_MIN_ALPHA = 0.70
+-- BUFF_FLASH_TIME_ON = 0.8
+-- BUFF_FLASH_TIME_OFF = 0.8
+-- BUFF_MIN_ALPHA = 0.70
 
 -- local myscale = 1.1
--- local myfont = NAMEPLATE_FONT 
+-- local myfont = NAMEPLATE_FONT
 
 -- local glosstex1 = "Interface\\AddOns\\CustomMedia\\Media\\Textures\\gloss"
 -- local glosstex2 = "Interface\\AddOns\\CustomMedia\\Media\\Textures\\grey"
 
 -- local addon = CreateFrame("Frame")
 -- local _G = getfenv(0)
-        
+
 -- addon:SetScript("OnEvent", function(self, event, ...)
 --     local unit = ...
---     if(event=="PLAYER_ENTERING_WORLD") then       
---         ConsolidatedBuffs:SetScale(myscale) 
+--     if(event=="PLAYER_ENTERING_WORLD") then
+--         ConsolidatedBuffs:SetScale(myscale)
 --         ConsolidatedBuffs:ClearAllPoints()
---         ConsolidatedBuffs:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -10, -10)
---         --ConsolidatedBuffs.SetPoint = function() end
+--         ConsolidatedBuffs:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -7, -7)
+--         ConsolidatedBuffs.SetPoint = function() end
 
---         TemporaryEnchantFrame:SetScale(myscale) 
+--         TemporaryEnchantFrame:SetScale(myscale)
 
---         BuffFrame:SetScale(myscale) 
+--         BuffFrame:SetScale(myscale)
 --         BuffFrame:ClearAllPoints()
---         BuffFrame:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -10, -10)
+--         BuffFrame:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -7, -7)
 --         BuffFrame.SetPoint = function() end
 
 --         --addon:runthroughicons()
@@ -93,7 +93,7 @@
 
 -- SecondsToTimeAbbrev = function(time)
 -- local hr, m, s, text
---     if time <= 0 then 
+--     if time <= 0 then
 --         text = ""
 --     elseif(time < 3600 and time > 60) then
 --         hr = floor(time / 3600)
