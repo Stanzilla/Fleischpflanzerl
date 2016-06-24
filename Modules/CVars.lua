@@ -4,7 +4,6 @@ StanUICV:RegisterEvent("VARIABLES_LOADED")
 StanUICV:SetScript("OnEvent", function()
 
     SetCVar("Autointeract", 0)
-    SetCVar("cameraDistanceMax", 48) 	    	 			-- Camera's max zoom out Distance. 50 is max.
 	SetCVar("cameraDistanceMaxFactor", 3.4) 		 		-- Sets the factor by which cameraDistanceMax is multiplied.
 	SetCVar("ShowClassColorInNameplate", 1) 	 			-- Turns on class coloring in nameplates.
 	SetCVar("screenshotQuality", 10) 			 			-- Screenshot quality (0-10)
