@@ -4,7 +4,7 @@ StanUICV:RegisterEvent("VARIABLES_LOADED")
 StanUICV:SetScript("OnEvent", function()
 
     SetCVar("Autointeract", 0)
-	SetCVar("cameraDistanceMaxFactor", 3.4) 		 		-- Sets the factor by which cameraDistanceMax is multiplied.
+	SetCVar("cameraDistanceMaxFactor", 1.9) 		 		-- Sets the factor by which cameraDistanceMax is multiplied.
 	SetCVar("ShowClassColorInNameplate", 1) 	 			-- Turns on class coloring in nameplates.
 	SetCVar("screenshotQuality", 10) 			 			-- Screenshot quality (0-10)
 	SetCVar("useUiScale", 0)					 			-- Turns off UI scaling
@@ -15,6 +15,14 @@ StanUICV:SetScript("OnEvent", function()
 	SetCVar("cameraSmoothTrackingStyle", 0)
 	SetCVar("colorChatNamesByClass", 1) -- no UI
 	SetCVar("violenceLevel", 5) -- no UI
+	SetCVar("gameTip", 0)
+	SetCVar("UnitNameOwn", 1)
+	SetCVar("UnitNameGuildTitle", 0)
+	SetCVar("UnitNamePlayerPVPTitle", 0)
+	SetCVar("nameplateMaxDistance", 50)
+	if GetCurrentBindingSet() == 1 then
+		SetBindings(2)
+	end
 
 	ToggleChatColorNamesByClassGroup(true, "SAY")
 	ToggleChatColorNamesByClassGroup(true, "EMOTE")
