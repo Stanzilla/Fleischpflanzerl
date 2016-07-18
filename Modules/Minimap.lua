@@ -209,11 +209,15 @@ rd:SetScript("OnEvent", function()
         FPMinimap.Coord:SetScript('OnUpdate', updatefunc)
     end
 
-    if GarrisonLandingPageMinimapButton then
-        GarrisonLandingPageMinimapButton:Hide()
-        GarrisonLandingPageMinimapButton.ClearAllPoints = dummy
-        GarrisonLandingPageMinimapButton.SetPoint = dummy
-        GarrisonLandingPageMinimapButton:SetAlpha(0)
+    if OrderHallCommandBar then        
+        local b, c = OrderHallCommandBar, GarrisonLandingPageMinimapButton
+        b:UnregisterAllEvents()
+        c:UnregisterAllEvents()
+        b:HookScript("OnShow", b.Hide)
+        c:HookScript("OnShow", b.Hide)
+        b:Hide()
+        c:Hide()
+        GarrisonLandingPageTutorialBox:Hide()
     end
 
     local _, _, difficulty, _, maxPlayers = GetInstanceInfo()
