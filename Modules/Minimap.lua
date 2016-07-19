@@ -7,7 +7,6 @@ FPMinimap:RegisterEvent('ZONE_CHANGED_NEW_AREA')
 --FPMinimap:RegisterEvent('INSTANCE_ENCOUNTER_ENGAGE_UNIT')
 
 local total = 0
---local myfont = NAMEPLATE_FONT
 local myfont = "Interface\\AddOns\\CustomMedia\\Media\\Fonts\\myriadprosemibold.ttf"
 local classColor = CUSTOM_CLASS_COLORS and
         CUSTOM_CLASS_COLORS[select(2, UnitClass('player'))] or
@@ -30,9 +29,6 @@ end
 
 function FPMinimap:ADDON_LOADED(self)
     Minimap:SetFrameStrata("LOW")
-
-    --MinimapZoneText:Hide()
-    --MinimapZoneTextButton:Hide()
 
     MiniMapTracking:Hide()
     
@@ -160,7 +156,6 @@ for _, texture in pairs({
     end
 end
 
-
 --[[ Clock Styling Module ]]--
 
 if (not IsAddOnLoaded('Blizzard_TimeManager')) then
@@ -218,6 +213,7 @@ rd:SetScript("OnEvent", function()
         b:Hide()
         c:Hide()
         GarrisonLandingPageTutorialBox:Hide()
+        hooksecurefunc("OrderHall_CheckCommandBar", function() if OrderHallCommandBar then OrderHallCommandBar:Hide() end end)
     end
 
     local _, _, difficulty, _, maxPlayers = GetInstanceInfo()
@@ -276,6 +272,3 @@ rd:SetScript("OnEvent", function()
         rdt:SetAlpha(0.6)
     end
 end)
-
-
-hooksecurefunc("OrderHall_CheckCommandBar", function() if OrderHallCommandBar then OrderHallCommandBar:Hide() end end)
