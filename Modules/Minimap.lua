@@ -205,15 +205,19 @@ rd:SetScript("OnEvent", function()
     end
 
     if OrderHallCommandBar then        
-        local b, c = OrderHallCommandBar, GarrisonLandingPageMinimapButton
-        b:UnregisterAllEvents()
-        c:UnregisterAllEvents()
+        local b = OrderHallCommandBar
+        b:UnregisterAllEvents()        
         b:HookScript("OnShow", b.Hide)
-        c:HookScript("OnShow", b.Hide)
         b:Hide()
+        hooksecurefunc("OrderHall_CheckCommandBar", function() if OrderHallCommandBar then OrderHallCommandBar:Hide() end end)
+    end
+
+    if GarrisonLandingPageMinimapButton then
+        local c = GarrisonLandingPageMinimapButton
+        c:UnregisterAllEvents()
+        c:HookScript("OnShow", c.Hide)
         c:Hide()
         GarrisonLandingPageTutorialBox:Hide()
-        hooksecurefunc("OrderHall_CheckCommandBar", function() if OrderHallCommandBar then OrderHallCommandBar:Hide() end end)
     end
 
     local _, _, difficulty, _, maxPlayers = GetInstanceInfo()
