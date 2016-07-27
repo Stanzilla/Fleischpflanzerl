@@ -35,3 +35,6 @@ hooksecurefunc(CinematicFrame.closeDialog,"Show",function()
 	CinematicFrame.closeDialog:Hide()
 	CinematicFrame_CancelCinematic()
 end)
+
+-- Stop putting spells into my bars, thank you
+IconIntroTracker:UnregisterEvent("SPELL_PUSHED_TO_ACTIONBAR")
