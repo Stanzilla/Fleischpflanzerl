@@ -77,7 +77,7 @@ local raidIcons = {
     -- \195\132 Ä, \195\164 ä
     ["%{[tT][oO][tT][eE][nN][sS][cC][hH]\195[\132\164][dD][eE][lL]%}"] = "{rt8}",
 }
- 
+
 -- raid icons
 local function filter(self, event, msg, ...)
     if msg then

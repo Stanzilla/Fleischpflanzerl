@@ -1,3 +1,5 @@
+-- GLOBALS: ChatFrame5
+
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("UPDATE_FACTION")
 local reps = {}

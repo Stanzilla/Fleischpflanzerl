@@ -20,7 +20,7 @@ StanUICV:SetScript("OnEvent", function()
 	SetCVar("UnitNameGuildTitle", 0)
 	SetCVar("UnitNamePlayerPVPTitle", 0)
 	SetCVar("nameplateMaxDistance", 50)
-	SetCVar("SkyCloudLOD", 3)	
+	SetCVar("SkyCloudLOD", 3)
 
 	ToggleChatColorNamesByClassGroup(true, "SAY")
 	ToggleChatColorNamesByClassGroup(true, "EMOTE")
