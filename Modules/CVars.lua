@@ -22,6 +22,7 @@ StanUICV:SetScript("OnEvent", function()
 	SetCVar("UnitNamePlayerPVPTitle", 0)
 	SetCVar("nameplateMaxDistance", 50)
 	SetCVar("SkyCloudLOD", 3)
+	CameraZoomOut(100)
 
 	ToggleChatColorNamesByClassGroup(true, "SAY")
 	ToggleChatColorNamesByClassGroup(true, "EMOTE")
