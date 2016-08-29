@@ -107,17 +107,19 @@ FPMinimap.Coord.Text:SetTextColor(1, 1, 1)
 FPMinimap.Coord.Text:SetShadowOffset(0, 0)
 FPMinimap.Coord:SetScript('OnClick', function() ToggleFrame(WorldMapFrame) end)
 
+local total = 0
 local function updatefunc(self, elapsed)
-    local total = 0
     total = total + elapsed
-    if(total > 0.25) then
-        local x, y = GetPlayerMapPosition('player')
-        self.Text:SetFormattedText('%.1f,%.1f', x * 100, y * 100)
-        total = 0
-    end
+    if total <= 0.2 then
+        return
+    end        
+    total = 0
+    local x, y = GetPlayerMapPosition('player')
+    self.Text:SetFormattedText('%.1f,%.1f', x * 100, y * 100)
 end
 
 function FPMinimap:PLAYER_ENTERING_WORLD()
+    SetMapToCurrentZone()
     if(IsInInstance()) then
         self.Coord.Text:SetText()
         self.Coord:SetScript('OnUpdate', nil)
@@ -193,14 +195,6 @@ rdt:SetFont(myfont, 16, 'OUTLINE')
 rdt:SetTextColor(1, 1, 1)
 
 rd:SetScript("OnEvent", function()
-
-    if IsInInstance() then
-        FPMinimap.Coord.Text:SetText()
-        FPMinimap.Coord:SetScript('OnUpdate', nil)
-    else
-        FPMinimap.Coord:SetScript('OnUpdate', updatefunc)
-    end
-
     if OrderHallCommandBar then
         local b = OrderHallCommandBar
         b:UnregisterAllEvents()

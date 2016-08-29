@@ -1,5 +1,7 @@
-local StanUICV = CreateFrame("Frame")
+CameraPanelOptions.cameraDistanceMaxFactor.maxValue = 2.6
+C_TransmogCollection.SetShowMissingSourceInItemTooltips(true)
 
+local StanUICV = CreateFrame("Frame")
 StanUICV:RegisterEvent("VARIABLES_LOADED")
 StanUICV:SetScript("OnEvent", function()
 
@@ -20,8 +22,8 @@ StanUICV:SetScript("OnEvent", function()
 	SetCVar("UnitNameGuildTitle", 0)
 	SetCVar("UnitNamePlayerGuild", 0)
 	SetCVar("UnitNamePlayerPVPTitle", 0)
-	SetCVar("nameplateMaxDistance", 50)
 	SetCVar("SkyCloudLOD", 3)
+	CameraZoomOut(100)
 
 	ToggleChatColorNamesByClassGroup(true, "SAY")
 	ToggleChatColorNamesByClassGroup(true, "EMOTE")
@@ -50,4 +52,3 @@ StanUICV:SetScript("OnEvent", function()
 	ToggleChatColorNamesByClassGroup(true, "INSTANCE_CHAT")
 	ToggleChatColorNamesByClassGroup(true, "INSTANCE_CHAT_LEADER")
 end)
-CameraPanelOptions.cameraDistanceMaxFactor.maxValue = 2.6
