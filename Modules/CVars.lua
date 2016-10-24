@@ -1,4 +1,3 @@
-CameraPanelOptions.cameraDistanceMaxFactor.maxValue = 2.6
 C_TransmogCollection.SetShowMissingSourceInItemTooltips(true)
 
 local StanUICV = CreateFrame("Frame")
@@ -6,7 +5,7 @@ StanUICV:RegisterEvent("VARIABLES_LOADED")
 StanUICV:SetScript("OnEvent", function()
 
     SetCVar("Autointeract", 0)
-	SetCVar("cameraDistanceMaxFactor", 2.6) 		 		-- Sets the factor by which cameraDistanceMax is multiplied.
+	SetCVar("cameraDistanceMaxZoomFactor", 2.6) 		 		-- Sets the factor by which cameraDistanceMax is multiplied.
 	SetCVar("ShowClassColorInNameplate", 1) 	 			-- Turns on class coloring in nameplates.
 	SetCVar("screenshotQuality", 10) 			 			-- Screenshot quality (0-10)
 	SetCVar("useUiScale", 0)					 			-- Turns off UI scaling
@@ -23,6 +22,7 @@ StanUICV:SetScript("OnEvent", function()
 	SetCVar("UnitNamePlayerGuild", 0)
 	SetCVar("UnitNamePlayerPVPTitle", 0)
 	SetCVar("SkyCloudLOD", 3)
+	SetCVar("nameplateMotion", 1)
 	CameraZoomOut(100)
 
 	ToggleChatColorNamesByClassGroup(true, "SAY")
