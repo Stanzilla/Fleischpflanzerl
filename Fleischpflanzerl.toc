@@ -6,5 +6,6 @@
 ## X-Credits: Your mum
 ## Version: 1.6
 ## X-Category: Interface Enhancements
+## OptionalDeps: Kui_Nameplates_Core
 
 Modules.xml

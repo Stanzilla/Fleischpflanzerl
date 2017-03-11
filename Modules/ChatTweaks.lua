@@ -47,15 +47,15 @@ CHAT_FRAME_TAB_ALERTING_NOMOUSE_ALPHA = 0
 SCREENSHOT_SUCCESS = ""
 
 
--- -- Making the chat background invisibile
--- for index, value in ipairs(CHAT_FRAME_TEXTURES) do
--- 	for i=1, NUM_CHAT_WINDOWS, 1 do
--- 		_G["ChatFrame" .. i .. value]:Hide();
--- 		_G["ChatFrame" .. i .. value].Show = function() end;
--- 		_G["ChatFrame" .. i .. value]:SetAlpha(0);
--- 		_G["ChatFrame" .. i .. value].SetAlpha = function() end;
--- 	end
--- end
+-- Making the chat background invisibile
+for index, value in ipairs(CHAT_FRAME_TEXTURES) do
+	for i=1, NUM_CHAT_WINDOWS, 1 do
+		_G["ChatFrame" .. i .. value]:Hide();
+		_G["ChatFrame" .. i .. value].Show = function() end;
+		_G["ChatFrame" .. i .. value]:SetAlpha(0);
+		_G["ChatFrame" .. i .. value].SetAlpha = function() end;
+	end
+end
 
 local function RemoveCurrentRealmName(self, event, msg, author, ...)   --code from Epicgrim remade by Tukz
 	local realmName = string.gsub(GetRealmName(), " ", "")
