@@ -1,5 +1,5 @@
--- GLOBALS: SLASH_GM1 SLASH_RELOAD1 SLASH_PQUIT
--- GLOBALS: ScrollFrameTemplate_OnMouseWheel InterfaceOptionsFrameAddOnsList CinematicFrame CinematicFrame_CancelCinematic
+-- luacheck: globals SLASH_GM1 SLASH_RELOAD1 SLASH_PQUIT
+-- luacheck: globals ScrollFrameTemplate_OnMouseWheel InterfaceOptionsFrameAddOnsList CinematicFrame CinematicFrame_CancelCinematic
 
 --[[ Custom Slash Handlers ]]--
 SlashCmdList['RELOAD'] = function() ReloadUI() end

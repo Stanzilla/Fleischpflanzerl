@@ -1,9 +1,9 @@
 local addon = ...
 
--- GLOBALS: Minimap MiniMapTracking MiniMapChallengeMode QueueStatusMinimapButton QueueStatusMinimapButtonBorder
--- GLOBALS: GuildInstanceDifficulty MiniMapInstanceDifficulty MiniMapMailIcon MiniMapMailFrame MiniMapMailBorder
--- GLOBALS: MiniMapVoiceChatFrame MinimapNorthTag WorldStateAlwaysUpFrame FriendsFont_Large FriendsFont_Normal FriendsFont_Small FriendsFont_UserText
--- GLOBALS: MiniMapTrackingDropDown GameTimeFrame TimeManagerClockTicker OrderHallCommandBar GarrisonLandingPageMinimapButton GarrisonLandingPageTutorialBox
+-- luacheck: globals Minimap MiniMapTracking MiniMapChallengeMode QueueStatusMinimapButton QueueStatusMinimapButtonBorder
+-- luacheck: globals GuildInstanceDifficulty MiniMapInstanceDifficulty MiniMapMailIcon MiniMapMailFrame MiniMapMailBorder
+-- luacheck: globals MiniMapVoiceChatFrame MinimapNorthTag WorldStateAlwaysUpFrame FriendsFont_Large FriendsFont_Normal FriendsFont_Small FriendsFont_UserText
+-- luacheck: globals MiniMapTrackingDropDown GameTimeFrame TimeManagerClockTicker OrderHallCommandBar GarrisonLandingPageMinimapButton GarrisonLandingPageTutorialBox
 
 local FPMinimap = CreateFrame('Frame', 'FPMinimap', UIParent)
 FPMinimap:SetScript('OnEvent', function(self, event, ...) self[event](self, event, ...) end)
@@ -114,7 +114,7 @@ local function updatefunc(self, elapsed)
     total = total + elapsed
     if total <= 0.2 then
         return
-    end        
+    end
     total = 0
     local x, y = GetPlayerMapPosition('player')
     self.Text:SetFormattedText('%.1f,%.1f', x * 100, y * 100)

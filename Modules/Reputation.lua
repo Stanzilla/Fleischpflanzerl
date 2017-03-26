@@ -1,4 +1,4 @@
--- GLOBALS: ChatFrame5
+-- luacheck: globals ChatFrame5
 
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("UPDATE_FACTION")

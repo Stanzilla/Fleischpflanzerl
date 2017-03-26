@@ -1,3 +1,7 @@
+-- luacheck: globals GENERAL_CHAT_DOCK FCFDock_GetSelectedWindow FCF_FadeOutChatFrame FCFTab_UpdateAlpha
+-- luacheck: globals CHAT_FRAME_TEXTURES NUM_CHAT_WINDOWS CHAT_TAB_HIDE_DELAY CHAT_FRAME_TAB_ALERTING_MOUSEOVER_ALPHA
+-- luacheck: globals CHAT_FRAME_TAB_ALERTING_NOMOUSE_ALPHA
+
 -- Fix the broken ass fading of the chat frames
 hooksecurefunc("FCF_FadeOutChatFrame", function(chatFrame)
 		local frameName = chatFrame:GetName()
