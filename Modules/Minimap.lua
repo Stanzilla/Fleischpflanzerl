@@ -14,12 +14,12 @@ FPMinimap:RegisterEvent('ZONE_CHANGED_NEW_AREA')
 
 local myfont = "Interface\\AddOns\\CustomMedia\\Media\\Fonts\\myriadprosemibold.ttf"
 local classColor = CUSTOM_CLASS_COLORS and
-        CUSTOM_CLASS_COLORS[select(2, UnitClass('player'))] or
-        RAID_CLASS_COLORS[select(2, UnitClass('player'))]
+    CUSTOM_CLASS_COLORS[select(2, UnitClass('player'))] or
+    RAID_CLASS_COLORS[select(2, UnitClass('player'))]
 local color = {r = 255/255, g = 255/255, b = 255/255 }
 
 function FPMinimap:ZONE_CHANGED_NEW_AREA()
-    --SetMapToCurrentZone()
+--SetMapToCurrentZone()
 end
 
 function FPMinimap:INSTANCE_ENCOUNTER_ENGAGE_UNIT()

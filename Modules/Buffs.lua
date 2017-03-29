@@ -37,13 +37,13 @@
 --         addon:checkgloss("BuffButton"..i,1)
 --         i = i + 1
 --     end
---         i = 1
+--     i = 1
 --     while _G["DebuffButton"..i]
 --     do
 --         addon:checkgloss("DebuffButton"..i,2)
 --         i = i + 1
 --     end
---         i = 1
+--     i = 1
 --     while _G["TempEnchant"..i]
 --     do
 --         addon:checkgloss("TempEnchant"..i,3)
@@ -63,17 +63,17 @@
 --     ff:SetPoint("TOP",f,"BOTTOM",0,0)
 
 --     if not c then
---     local fg = CreateFrame("Frame", name.."Gloss", f)
---     fg:SetAllPoints(f)
+--         local fg = CreateFrame("Frame", name.."Gloss", f)
+--         fg:SetAllPoints(f)
 
---     local t = f:CreateTexture(name.."GlossTexture","ARTWORK")
---     t:SetTexture(glosstex1)
---     t:SetPoint("TOPLEFT", fg, "TOPLEFT", 0, 0)
---     t:SetPoint("BOTTOMRIGHT", fg, "BOTTOMRIGHT", 0, 0)
+--         local t = f:CreateTexture(name.."GlossTexture","ARTWORK")
+--         t:SetTexture(glosstex1)
+--         t:SetPoint("TOPLEFT", fg, "TOPLEFT", 0, 0)
+--         t:SetPoint("BOTTOMRIGHT", fg, "BOTTOMRIGHT", 0, 0)
 
---     i:SetTexCoord(0.1,0.9,0.1,0.9)
---     i:SetPoint("TOPLEFT", fg, "TOPLEFT", 2, -2)
---     i:SetPoint("BOTTOMRIGHT", fg, "BOTTOMRIGHT", -2, 2)
+--         i:SetTexCoord(0.1,0.9,0.1,0.9)
+--         i:SetPoint("TOPLEFT", fg, "TOPLEFT", 2, -2)
+--         i:SetPoint("BOTTOMRIGHT", fg, "BOTTOMRIGHT", -2, 2)
 --     end
 
 --     local tex = _G[name.."GlossTexture"]
@@ -92,7 +92,7 @@
 -- end
 
 -- SecondsToTimeAbbrev = function(time)
--- local hr, m, s, text
+--     local hr, m, s, text
 --     if time <= 0 then
 --         text = ""
 --     elseif(time < 3600 and time > 60) then
@@ -112,7 +112,7 @@
 --         hr = floor(time / 60 + 1)
 --         text = format("%d".."|cffffff00".."m", hr)
 --     end
---         text = format("|cffffffff".."%s", text)
+--     text = format("|cffffffff".."%s", text)
 --     return text
 -- end
 

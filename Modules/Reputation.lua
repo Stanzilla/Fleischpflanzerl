@@ -5,11 +5,11 @@ frame:RegisterEvent("UPDATE_FACTION")
 local reps = {}
 frame:SetScript("OnEvent", function()
     local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader,
-    isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus, _
+        isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus, _
     local difference
     for factionIndex=1, GetNumFactions() do
         name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader,
-    isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = GetFactionInfo(factionIndex)
+        isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = GetFactionInfo(factionIndex)
         if not isHeader and name then
             if (reps[name]) then
                 difference = barValue - reps[name]
