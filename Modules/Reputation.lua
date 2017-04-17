@@ -10,6 +10,10 @@ frame:SetScript("OnEvent", function()
     for factionIndex=1, GetNumFactions() do
         name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader,
         isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = GetFactionInfo(factionIndex)
+        if C_Reputation.IsFactionParagon(factionIndex) then
+            local currentValue, threshold = C_Reputation.GetFactionParagonInfo(factionIndex)
+            barMin, barMax, barValue = 0, threshold, currentValue
+        end
         if not isHeader and name then
             if (reps[name]) then
                 difference = barValue - reps[name]

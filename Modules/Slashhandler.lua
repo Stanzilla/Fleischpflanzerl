@@ -40,7 +40,7 @@ end)
 -- Stop putting spells into my bars, thank you
 IconIntroTracker:UnregisterEvent("SPELL_PUSHED_TO_ACTIONBAR")
 
--- -- Stops ADDON_BLOCKED errors when entering combat with your map open.
+-- Stops ADDON_BLOCKED errors when entering combat with your map open.
 
 -- local fu = CreateFrame("Frame")
 -- fu:SetScript("OnEvent", function(self, event)
@@ -81,3 +81,24 @@ IconIntroTracker:UnregisterEvent("SPELL_PUSHED_TO_ACTIONBAR")
 -- 	end
 -- 	orig_WorldMapScrollFrame_ResetZoom()
 -- end
+
+-- add the movement speed to the character stat sheet
+
+function PaperDollFrame_SetMovementSpeed(statFrame, unit)
+	statFrame.wasSwimming = nil
+	statFrame.unit = unit
+	MovementSpeed_OnUpdate(statFrame)
+
+	statFrame.onEnterFunc = MovementSpeed_OnEnter
+	statFrame:SetScript("OnUpdate", MovementSpeed_OnUpdate)
+	statFrame:Show()
+end
+
+CharacterStatsPane.statsFramePool.resetterFunc =
+	function(pool, frame)
+		frame:SetScript("OnUpdate", nil)
+		frame.onEnterFunc = nil
+		frame.UpdateTooltip = nil
+		FramePool_HideAndClearAnchors(pool, frame)
+	end
+table.insert(PAPERDOLL_STATCATEGORIES[1].stats, { stat = "MOVESPEED"})
