@@ -10,5 +10,6 @@
 <Script file="Modules\Slashhandler.lua"/>
 <Script file="Modules\Vendor.lua"/>
 <Script file="Modules\kui.sanguine.lua"/>
+<Script file="Modules\kui.los-fade.lua"/>
 
 </Ui>
