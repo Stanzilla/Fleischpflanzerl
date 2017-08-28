@@ -1,4 +1,4 @@
-C_TransmogCollection.SetShowMissingSourceInItemTooltips(true)
+C_TransmogCollection.SetShowMissingSourceInItemTooltips(false)
 
 local StanUICV = CreateFrame("Frame")
 StanUICV:RegisterEvent("VARIABLES_LOADED")
