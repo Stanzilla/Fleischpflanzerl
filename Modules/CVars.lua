@@ -1,9 +1,7 @@
-C_TransmogCollection.SetShowMissingSourceInItemTooltips(false)
-
 local StanUICV = CreateFrame("Frame")
 StanUICV:RegisterEvent("VARIABLES_LOADED")
 StanUICV:SetScript("OnEvent", function()
-
+        C_TransmogCollection.SetShowMissingSourceInItemTooltips(true)
         SetCVar("Autointeract", 0)
         SetCVar("cameraDistanceMaxZoomFactor", 2.6) -- Sets the factor by which cameraDistanceMax is multiplied.
         SetCVar("ShowClassColorInNameplate", 1) -- Turns on class coloring in nameplates.

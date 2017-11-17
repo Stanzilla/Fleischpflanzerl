@@ -76,7 +76,7 @@ function FPMinimap:ADDON_LOADED(self)
     WorldStateAlwaysUpFrame:ClearAllPoints()
     WorldStateAlwaysUpFrame:SetPoint("TOP", UIParent, "TOP", 0, -40)
 
-    WorldMapFrameSizeUpButton:Hide()
+    WorldMapFrame.BorderFrame.MaximizeMinimizeFrame:Hide()
 
     SetFont(FriendsFont_Large,          myfont, 12, nil, nil, nil, nil, nil, nil, nil, nil, nil)
     SetFont(FriendsFont_Normal,         myfont, 12, nil, nil, nil, nil, nil, nil, nil, nil, nil)
