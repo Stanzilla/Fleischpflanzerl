@@ -1,5 +1,6 @@
 -- luacheck: globals SLASH_GM1 SLASH_RELOAD1 SLASH_PQUIT
--- luacheck: globals ScrollFrameTemplate_OnMouseWheel InterfaceOptionsFrameAddOnsList CinematicFrame CinematicFrame_CancelCinematic
+-- luacheck: globals ScrollFrameTemplate_OnMouseWheel InterfaceOptionsFrameAddOnsList CinematicFrame CinematicFrame_CancelCinematic InterfaceOptionsFrameAddOns
+-- luacheck: globals PaperDollFrame_SetMovementSpeed MovementSpeed_OnUpdate MovementSpeed_OnEnter CharacterStatsPane PAPERDOLL_STATCATEGORIES FramePool_HideAndClearAnchors
 
 --[[ Custom Slash Handlers ]]--
 SlashCmdList['RELOAD'] = function() ReloadUI() end
@@ -36,9 +37,6 @@ hooksecurefunc(CinematicFrame.closeDialog,"Show",function()
     CinematicFrame.closeDialog:Hide()
     CinematicFrame_CancelCinematic()
 end)
-
--- Stop putting spells into my bars, thank you
-IconIntroTracker:UnregisterEvent("SPELL_PUSHED_TO_ACTIONBAR")
 
 -- Stops ADDON_BLOCKED errors when entering combat with your map open.
 

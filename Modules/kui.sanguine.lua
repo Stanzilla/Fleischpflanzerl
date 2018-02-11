@@ -1,3 +1,5 @@
+-- luacheck: globals KuiNameplates
+
 if not KuiNameplates then
     return
 end

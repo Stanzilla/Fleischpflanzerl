@@ -1,3 +1,6 @@
+-- luacheck: globals KuiNameplates KuiNameplatesCore
+
+
 --[[
 -- THIS IS PROBABLY NOT ALL THAT INEFFICIENT ANYMORE
 -- IT MIGHT BE FINE TO USE IN RAIDS
@@ -12,7 +15,7 @@
 local folder,ns=...
 local addon = KuiNameplates
 local core = KuiNameplatesCore
-local mod = addon:NewPlugin('LOSFader',101)
+local mod = addon:NewPlugin('LOSFader', 101)
 local plugin_fading
 
 local function sizer_OnSizeChanged(self,x,y)
@@ -34,12 +37,14 @@ local function sizer_OnSizeChanged(self,x,y)
         end
     end
 end
+
 local function fading_FadeRulesReset()
     -- add LOS rule
     plugin_fading:AddFadeRule(function(f)
         return not f.state.LOS and 0
     end,21)
 end
+
 function mod:Create(frame)
     -- hook to frames' sizer
     local sizer = _G[frame:GetName()..'PositionHelper']
@@ -47,8 +52,9 @@ function mod:Create(frame)
         sizer:HookScript('OnSizeChanged',sizer_OnSizeChanged)
     end
 end
+
 function mod:Initialise()
-    print('|cff9966ffKui Nameplates|r: |cffff6666You are using Kui_Nameplates_Custom which is not updated by the Curse package.|r If you experience errors, check the repository on GitHub for updates.')
+    --print('|cff9966ffKui Nameplates|r: |cffff6666You are using Kui_Nameplates_Custom which is not updated by the Curse package.|r If you experience errors, check the repository on GitHub for updates.')
 
     plugin_fading = addon:GetPlugin('Fading')
     self:AddCallback('Fading','FadeRulesReset',fading_FadeRulesReset)

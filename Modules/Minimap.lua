@@ -4,6 +4,7 @@ local addon = ...
 -- luacheck: globals GuildInstanceDifficulty MiniMapInstanceDifficulty MiniMapMailIcon MiniMapMailFrame MiniMapMailBorder
 -- luacheck: globals MiniMapVoiceChatFrame MinimapNorthTag WorldStateAlwaysUpFrame FriendsFont_Large FriendsFont_Normal FriendsFont_Small FriendsFont_UserText
 -- luacheck: globals MiniMapTrackingDropDown GameTimeFrame TimeManagerClockTicker OrderHallCommandBar GarrisonLandingPageMinimapButton GarrisonLandingPageTutorialBox
+-- luacheck: globals TimeManagerClockButton TimeManagerAlarmFiredTexture GameTimeCalendarEventAlarmTexture GameTimeCalendarInvitesTexture GameTimeCalendarInvitesGlow
 
 local FPMinimap = CreateFrame('Frame', 'FPMinimap', UIParent)
 FPMinimap:SetScript('OnEvent', function(self, event, ...) self[event](self, event, ...) end)
@@ -34,7 +35,7 @@ local function SetFont(obj, font, size, style, r, g, b, sr, sg, sb, sox, soy)
     elseif r then obj:SetAlpha(r) end
 end
 
-function FPMinimap:ADDON_LOADED(self)
+function FPMinimap:ADDON_LOADED()
     Minimap:SetFrameStrata("LOW")
 
     MiniMapTracking:Hide()

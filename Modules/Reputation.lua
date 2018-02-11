@@ -1,14 +1,12 @@
--- luacheck: globals ChatFrame5
+-- luacheck: globals ChatFrame5 C_Reputation
 
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("UPDATE_FACTION")
 local reps = {}
 frame:SetScript("OnEvent", function()
-    local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader,
-        isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus, _
     local difference
     for factionIndex=1, GetNumFactions() do
-        name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader,
+        local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader,
         isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = GetFactionInfo(factionIndex)
         if C_Reputation.IsFactionParagon(factionIndex) then
             local currentValue, threshold = C_Reputation.GetFactionParagonInfo(factionIndex)
