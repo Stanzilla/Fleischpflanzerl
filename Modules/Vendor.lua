@@ -3,9 +3,7 @@ local guildRepair = true -- Always use guild repair (true) or always use own mon
 local guildOnlyRaid = false -- Guild repair ONLY while in a raid group
 local printMessage = true -- Prints how much the repair was
 
-local rm = CreateFrame("Frame", "RepairMe")
-rm:RegisterEvent("MERCHANT_SHOW")
-rm:SetScript("OnEvent", function()
+local function SellTrash()
     --sell trash
     local bag, slot, item
     for bag = 0, 4 do
@@ -18,6 +16,12 @@ rm:SetScript("OnEvent", function()
             end
         end
     end
+end
+
+local rm = CreateFrame("Frame", "RepairMe")
+rm:RegisterEvent("MERCHANT_SHOW")
+rm:SetScript("OnEvent", function()
+    C_Timer.NewTicker(0.2, SellTrash, 3)
     local cost = GetRepairAllCost()
     local function gr()
         if printMessage then
