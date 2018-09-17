@@ -9,7 +9,7 @@ local addon = ...
 local FPMinimap = CreateFrame('Frame', 'FPMinimap', UIParent)
 FPMinimap:SetScript('OnEvent', function(self, event, ...) self[event](self, event, ...) end)
 FPMinimap:RegisterEvent('ADDON_LOADED')
-FPMinimap:RegisterEvent('PLAYER_ENTERING_WORLD')
+-- FPMinimap:RegisterEvent('PLAYER_ENTERING_WORLD')
 FPMinimap:RegisterEvent('ZONE_CHANGED_NEW_AREA')
 --FPMinimap:RegisterEvent('INSTANCE_ENCOUNTER_ENGAGE_UNIT')
 
@@ -71,11 +71,11 @@ function FPMinimap:ADDON_LOADED()
     MiniMapMailText:SetText('New Mail!')
     MiniMapMailText:SetTextColor(1, 1, 1)
 
-    MiniMapVoiceChatFrame:Hide()
+    --MiniMapVoiceChatFrame:Hide()
     MinimapNorthTag:SetAlpha(0)
 
-    WorldStateAlwaysUpFrame:ClearAllPoints()
-    WorldStateAlwaysUpFrame:SetPoint("TOP", UIParent, "TOP", 0, -40)
+    -- WorldStateAlwaysUpFrame:ClearAllPoints()
+    -- WorldStateAlwaysUpFrame:SetPoint("TOP", UIParent, "TOP", 0, -40)
 
     WorldMapFrame.BorderFrame.MaximizeMinimizeFrame:Hide()
 
@@ -108,28 +108,28 @@ FPMinimap.Coord.Text:SetPoint('CENTER', FPMinimap.Coord)
 FPMinimap.Coord.Text:SetFont(myfont, 16, 'OUTLINE')
 FPMinimap.Coord.Text:SetTextColor(1, 1, 1)
 FPMinimap.Coord.Text:SetShadowOffset(0, 0)
-FPMinimap.Coord:SetScript('OnClick', function() ToggleFrame(WorldMapFrame) end)
+-- FPMinimap.Coord:SetScript('OnClick', function() ToggleFrame(WorldMapFrame) end)
 
-local total = 0
-local function updatefunc(self, elapsed)
-    total = total + elapsed
-    if total <= 0.2 then
-        return
-    end
-    total = 0
-    local x, y = GetPlayerMapPosition('player')
-    self.Text:SetFormattedText('%.1f,%.1f', x * 100, y * 100)
-end
+-- local total = 0
+-- local function updatefunc(self, elapsed)
+--     total = total + elapsed
+--     if total <= 0.2 then
+--         return
+--     end
+--     total = 0
+--     local x, y = GetPlayerMapPosition('player')
+--     self.Text:SetFormattedText('%.1f,%.1f', x * 100, y * 100)
+-- end
 
-function FPMinimap:PLAYER_ENTERING_WORLD()
-    SetMapToCurrentZone()
-    if(IsInInstance()) then
-        self.Coord.Text:SetText()
-        self.Coord:SetScript('OnUpdate', nil)
-    else
-        self.Coord:SetScript('OnUpdate', updatefunc)
-    end
-end
+-- function FPMinimap:PLAYER_ENTERING_WORLD()
+--     --SetMapToCurrentZone()
+--     if(IsInInstance()) then
+--         self.Coord.Text:SetText()
+--         self.Coord:SetScript('OnUpdate', nil)
+--     else
+--         self.Coord:SetScript('OnUpdate', updatefunc)
+--     end
+-- end
 
 --[[ Calendar Button Module ]]--
 for i = 1, select('#', GameTimeFrame:GetRegions()) do
