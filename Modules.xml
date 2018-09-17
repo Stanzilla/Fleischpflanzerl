@@ -11,5 +11,6 @@
 <Script file="Modules\Vendor.lua"/>
 <Script file="Modules\kui.sanguine.lua"/>
 <Script file="Modules\kui.los-fade.lua"/>
+<Script file="Modules\custom.target-name.lua"/>
 
 </Ui>
