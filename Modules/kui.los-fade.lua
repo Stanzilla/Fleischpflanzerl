@@ -2,8 +2,7 @@
 
 
 --[[
--- THIS IS PROBABLY NOT ALL THAT INEFFICIENT ANYMORE
--- IT MIGHT BE FINE TO USE IN RAIDS
+-- This is inefficient and may have a performance impact on slower PCs.
 --
 -- Fade out frames which are out of your characters line of sight,
 -- leaving their clickboxes and motion behaviour intact, as that can't be
@@ -12,13 +11,20 @@
 -- This relies on the CVar "nameplateOccludedAlphaMult" being set to 0.4 or
 -- lower, and "nameplateMinAlpha" being 0.3 or above. The defaults are fine.
 --]]
-local folder,ns=...
 local addon = KuiNameplates
 local core = KuiNameplatesCore
-local mod = addon:NewPlugin('LOSFader', 101)
-local plugin_fading
 
+local mod = addon:NewPlugin('LOSFader',101,3)
+if not mod then return end
+
+local FADE_TO = 0.1
+
+local plugin_fading
+local RULE_UID = 'los_fade'
+
+-- local functions #############################################################
 local function sizer_OnSizeChanged(self,x,y)
+    if not self then return end
     if self.f.parent:IsShown() then
         -- add LOS state
         if self.f.parent:GetAlpha() <= .4 then
@@ -37,14 +43,32 @@ local function sizer_OnSizeChanged(self,x,y)
         end
     end
 end
-
 local function fading_FadeRulesReset()
     -- add LOS rule
     plugin_fading:AddFadeRule(function(f)
-        return not f.state.LOS and 0
-    end,21)
+        return not f.state.LOS and FADE_TO
+    end,21,RULE_UID)
 end
+-- world entry alpha check loop ################################################
+local uf = CreateFrame('Frame')
+local uf_elapsed,uf_loop_world_entry = 0,0
+local function uf_OnUpdate(self,elap)
+    uf_elapsed = uf_elapsed + elap
+    if uf_elapsed > .1 then
+        uf_elapsed = 0
 
+        for k,f in addon:Frames() do
+            sizer_OnSizeChanged(_G[f:GetName()..'PositionHelper'])
+        end
+
+        uf_loop_world_entry = uf_loop_world_entry + 1
+        if uf_loop_world_entry > 2 then
+            uf_loop_world_entry = 0
+            self:SetScript('OnUpdate',nil)
+        end
+    end
+end
+-- messages ####################################################################
 function mod:Create(frame)
     -- hook to frames' sizer
     local sizer = _G[frame:GetName()..'PositionHelper']
@@ -52,13 +76,21 @@ function mod:Create(frame)
         sizer:HookScript('OnSizeChanged',sizer_OnSizeChanged)
     end
 end
-
+function mod:Show(frame)
+    uf:SetScript('OnUpdate',uf_OnUpdate)
+end
+-- events ######################################################################
+function mod:PLAYER_ENTERING_WORLD()
+    uf:SetScript('OnUpdate',uf_OnUpdate)
+end
+-- initialise ##################################################################
+function mod:OnEnable()
+    fading_FadeRulesReset()
+    self:RegisterMessage('Create')
+    self:RegisterMessage('Show')
+    self:RegisterEvent('PLAYER_ENTERING_WORLD')
+end
 function mod:Initialise()
-    --print('|cff9966ffKui Nameplates|r: |cffff6666You are using Kui_Nameplates_Custom which is not updated by the Curse package.|r If you experience errors, check the repository on GitHub for updates.')
-
     plugin_fading = addon:GetPlugin('Fading')
     self:AddCallback('Fading','FadeRulesReset',fading_FadeRulesReset)
-    fading_FadeRulesReset()
-
-    self:RegisterMessage('Create')
 end
