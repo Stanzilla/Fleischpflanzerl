@@ -38,48 +38,6 @@ hooksecurefunc(CinematicFrame.closeDialog,"Show",function()
     CinematicFrame_CancelCinematic()
 end)
 
--- Stops ADDON_BLOCKED errors when entering combat with your map open.
-
--- local fu = CreateFrame("Frame")
--- fu:SetScript("OnEvent", function(self, event)
--- 	self:UnregisterEvent(event)
--- 	RefreshWorldMap()
--- end)
-
--- WorldMapFrame.UIElementsFrame.ActionButton.SetMapAreaID = function(...)
--- 	if InCombatLockdown() then
--- 		fu:RegisterEvent("PLAYER_REGEN_ENABLED")
--- 		return
--- 	end
--- 	WorldMapActionButtonMixin.SetMapAreaID(...)
--- end
-
--- WorldMapFrame.UIElementsFrame.ActionButton.SetHasWorldQuests = function(...)
--- 	if InCombatLockdown() then
--- 		fu:RegisterEvent("PLAYER_REGEN_ENABLED")
--- 		return
--- 	end
--- 	WorldMapActionButtonMixin.SetHasWorldQuests(...)
--- end
-
--- orig_WorldMapFrame_UpdateOverlayLocations = WorldMapFrame_UpdateOverlayLocations
--- WorldMapFrame_UpdateOverlayLocations = function()
--- 	if InCombatLockdown() then
--- 		fu:RegisterEvent("PLAYER_REGEN_ENABLED")
--- 		return
--- 	end
--- 	orig_WorldMapFrame_UpdateOverlayLocations()
--- end
-
--- orig_WorldMapScrollFrame_ResetZoom = WorldMapScrollFrame_ResetZoom
--- WorldMapScrollFrame_ResetZoom = function()
--- 	if InCombatLockdown() then
--- 		fu:RegisterEvent("PLAYER_REGEN_ENABLED")
--- 		return
--- 	end
--- 	orig_WorldMapScrollFrame_ResetZoom()
--- end
-
 -- add the movement speed to the character stat sheet
 
 function PaperDollFrame_SetMovementSpeed(statFrame, unit)
