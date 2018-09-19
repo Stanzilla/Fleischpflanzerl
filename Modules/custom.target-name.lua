@@ -18,6 +18,8 @@ local function ClassColorName(unit)
     return RAID_CLASS_COLORS[class]:WrapTextInColorCode(UnitName(unit))
 end
 
+local player = UnitGUID('player')
+
 local update = CreateFrame('Frame')
 update:SetScript('OnUpdate',function(self,elap)
     -- units changing target doesn't fire an event, so we have to check constantly
@@ -28,9 +30,9 @@ update:SetScript('OnUpdate',function(self,elap)
 
         for _,f in addon:Frames() do
             if f:IsShown() and f.unit then
-                local name = UnitName(f.unit..'target')
-                if name then
-                    f.TargetName:SetText(ClassColorName(name) or "")
+                local name = f.unit..'target'
+                if name and UnitGUID(f.unit..'target') ~= player then
+                    f.TargetName:SetText(ClassColorName(name))
                 else
                     f.TargetName:SetText("")
                 end
