@@ -12,5 +12,5 @@
 <Script file="Modules\custom.mythicplus.lua"/>
 <Script file="Modules\kui.los-fade.lua"/>
 <Script file="Modules\custom.target-name.lua"/>
-
+<Script file="Modules\custom.agony.lua"/>
 </Ui>
