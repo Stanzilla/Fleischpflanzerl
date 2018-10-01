@@ -18,50 +18,57 @@ local function SellTrash()
     end
 end
 
+local function GuildRepair(cost)
+    if printMessage then
+        if cost > 1e4 then
+            print(format("Repaired from the guild bank for %d|cffffd700g|r %d|cffc7c7cfs|r %d|cffeda55fc|r", cost / 1e4, mod(cost, 1e4) / 1e2, mod(cost, 1e2)))
+        elseif cost > 1e2 then
+            print(format("Repaired from the guild bank for %d|cffc7c7cfs|r %d|cffeda55fc|r", cost / 1e2, mod(cost, 1e2)))
+        else
+            print(format("Repaired from the guild bank for %d|cffeda55fc|r", cost))
+        end
+    end
+    RepairAllItems(true)
+end
+
+local function SelfRepair(cost)
+    if printMessage then
+        if cost > 1e4 then
+            print(format("Repaired for %d|cffffd700g|r %d|cffc7c7cfs|r %d|cffeda55fc|r", cost / 1e4, mod(cost, 1e4) / 1e2, mod(cost, 1e2)))
+        elseif cost > 1e2 then
+            print(format("Repaired for %d|cffc7c7cfs|r %d|cffeda55fc|r", cost / 1e2, mod(cost, 1e2)))
+        else
+            print(format("Repaired for %d|cffeda55fc|r", cost))
+        end
+    end
+    RepairAllItems()
+end
+
 local rm = CreateFrame("Frame", "RepairMe")
 rm:RegisterEvent("MERCHANT_SHOW")
 rm:SetScript("OnEvent", function()
     C_Timer.NewTicker(0.2, SellTrash, 3)
     local cost = GetRepairAllCost()
-    local function gr()
-        if printMessage then
-            if cost > 1e4 then
-                print(format("Repaired from the guild bank for %d|cffffd700g|r %d|cffc7c7cfs|r %d|cffeda55fc|r", cost / 1e4, mod(cost, 1e4) / 1e2, mod(cost, 1e2)))
-            elseif cost > 1e2 then
-                print(format("Repaired from the guild bank for %d|cffc7c7cfs|r %d|cffeda55fc|r", cost / 1e2, mod(cost, 1e2)))
-            else
-                print(format("Repaired from the guild bank for %d|cffeda55fc|r", cost))
-            end
-        end
-        RepairAllItems(1)
-    end
-    local function sr()
-        if printMessage then
-            if cost > 1e4 then
-                print(format("Repaired for %d|cffffd700g|r %d|cffc7c7cfs|r %d|cffeda55fc|r", cost / 1e4, mod(cost, 1e4) / 1e2, mod(cost, 1e2)))
-            elseif cost > 1e2 then
-                print(format("Repaired for %d|cffc7c7cfs|r %d|cffeda55fc|r", cost / 1e2, mod(cost, 1e2)))
-            else
-                print(format("Repaired for %d|cffeda55fc|r", cost))
-            end
-        end
-        RepairAllItems()
-    end
+    local money = GetMoney()
+
     if IsModifierKeyDown() then
         return
     elseif CanMerchantRepair() and cost ~= 0 then
         if guildRepair and CanGuildBankRepair() and cost <= GetGuildBankMoney() and (cost <= GetGuildBankWithdrawMoney() or GetGuildBankWithdrawMoney() == -1) then
             if guildOnlyRaid and GetNumGroupMembers() ~= 0 then
-                gr()
+                GuildRepair(cost)
+                print("1")
             elseif not guildOnlyRaid then
-                gr()
-            elseif cost <= GetMoney() then
-                sr()
+                GuildRepair(cost)
+                print("2")
+            elseif cost <= money then
+                SelfRepair(cost)
+                print("3")
             else
                 print("Not enough money to automatically repair")
             end
-        elseif cost <= GetMoney() then
-            sr()
+        elseif cost <= money then
+            SelfRepair(cost)
         else
             print("Not enough money to automatically repair")
         end
