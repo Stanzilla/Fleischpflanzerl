@@ -1,7 +1,4 @@
--- UNTESTED
--- some icons which are important for mythic+
--- (they should show up on the top right of nameplates)
-local folder,ns=...
+-- adds an agony tracker to the left of the nameplate
 local addon = KuiNameplates
 local core = KuiNameplatesCore
 
@@ -15,7 +12,7 @@ function mod:Create(f)
         squareness = 1,
         point = {'BOTTOMRIGHT','RIGHT','LEFT'},
         rows = 1,
-        filter = 'HARMFUL',
+        filter = 'HARMFUL|PLAYER',
         whitelist = {
             [980] = true, -- agony
         },
@@ -26,6 +23,7 @@ function mod:Create(f)
     agony:SetPoint('LEFT',f.bg,'LEFT',-40,0)
     f.AgonyAura = agony
 end
+
 function mod:Initialise()
     self:RegisterMessage('Create')
 end

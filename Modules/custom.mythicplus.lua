@@ -1,7 +1,5 @@
--- UNTESTED
 -- some icons which are important for mythic+
--- (they should show up on the top right of nameplates)
-local folder,ns=...
+-- they show up on the top right of nameplates
 local addon = KuiNameplates
 local core = KuiNameplatesCore
 
@@ -27,6 +25,7 @@ function mod:Create(f)
     mythic:SetPoint('BOTTOMRIGHT',f.bg,'TOPRIGHT',0,10)
     f.MythicAuras = mythic
 end
+
 function mod:Initialise()
     self:RegisterMessage('Create')
 end
