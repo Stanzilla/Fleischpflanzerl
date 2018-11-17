@@ -218,6 +218,7 @@ rd:SetScript("OnEvent", function()
     rdt:SetFont(myfont, 16, 'OUTLINE')
     if difficulty == 0 then
         rdt:SetText("")
+        SetCVar("chatBubbles", 1)
     elseif maxPlayers == 1 then
         rdt:SetText("1")
     elseif difficulty == 1 then
@@ -236,6 +237,7 @@ rd:SetScript("OnEvent", function()
         rdt:SetText("LFR")
     elseif difficulty == 8 then
         rdt:SetText("5 M+")
+        SetCVar("chatBubbles", 0)
     elseif difficulty == 9 then
         rdt:SetText("40")
     elseif difficulty == 11 then

@@ -9,8 +9,9 @@
 <Script file="Modules\Reputation.lua"/>
 <Script file="Modules\Slashhandler.lua"/>
 <Script file="Modules\Vendor.lua"/>
-<Script file="Modules\custom.mythicplus.lua"/>
+<Script file="Modules\kui.mythicplus.lua"/>
 <Script file="Modules\kui.los-fade.lua"/>
-<Script file="Modules\custom.target-name.lua"/>
-<Script file="Modules\custom.agony.lua"/>
+<Script file="Modules\kui.target-name.lua"/>
+<Script file="Modules\kui.priority-debuffs.lua"/>
+<Script file="Modules\kui.left-layout.lua"/>
 </Ui>

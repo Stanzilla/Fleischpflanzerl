@@ -17,6 +17,8 @@ function mod:Create(f)
         whitelist = {
             [226510] = true, -- sanguine
             [277242] = true, -- symbiote of g'huun
+            [260805] = true, -- focusing iris
+            [263246] = true, -- lightning shield
         },
     })
     mythic:SetFrameLevel(0)
