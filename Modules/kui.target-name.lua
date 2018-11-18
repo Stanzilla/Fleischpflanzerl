@@ -1,7 +1,6 @@
 -- luacheck: globals KuiNameplates KuiNameplatesCore
 
--- add the unit's target's name above their name. Difficult to describe in a
--- coherent sentence.
+-- add the unit's target's name at the bottom right
 local folder,ns=...
 local addon = KuiNameplates
 local core = KuiNameplatesCore

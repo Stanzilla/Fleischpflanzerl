@@ -1,4 +1,6 @@
--- adds an agony tracker to the left of the nameplate
+-- luacheck: globals KuiNameplates KuiNameplatesCore
+
+-- adds an priority tracker to the left of the nameplate
 local addon = KuiNameplates
 local core = KuiNameplatesCore
 

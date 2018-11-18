@@ -1,5 +1,6 @@
--- some icons which are important for mythic+
--- they show up on the top right of nameplates
+-- luacheck: globals KuiNameplates KuiNameplatesCore
+
+-- some icons which are important for mythic+ they show up on the top right of nameplates
 local addon = KuiNameplates
 local core = KuiNameplatesCore
 

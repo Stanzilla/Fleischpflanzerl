@@ -9,9 +9,10 @@
 <Script file="Modules\Reputation.lua"/>
 <Script file="Modules\Slashhandler.lua"/>
 <Script file="Modules\Vendor.lua"/>
+<Script file="Modules\kui.left-layout.lua"/>
 <Script file="Modules\kui.mythicplus.lua"/>
 <Script file="Modules\kui.los-fade.lua"/>
 <Script file="Modules\kui.target-name.lua"/>
 <Script file="Modules\kui.priority-debuffs.lua"/>
-<Script file="Modules\kui.left-layout.lua"/>
+<Script file="Modules\kui.colour-bar-by-name.lua"/>
 </Ui>
