@@ -41,12 +41,14 @@ local function CanOverwriteHealthColor(f)
     return not f.state.health_colour_priority or
            f.state.health_colour_priority <= PRIORITY
 end
+
 -- messages ####################################################################
 function mod.Fading_FadeRulesReset()
     plugin_fading:AddFadeRule(function(f)
         return f.state.name and names_fade[f.state.name]
     end,1)
 end
+
 function mod:NameUpdate(frame)
     if COLOUR_TARGET and frame.handler:IsTarget() then return end
 
@@ -72,9 +74,11 @@ function mod:NameUpdate(frame)
         end
     end
 end
+
 function mod:UNIT_NAME_UPDATE(event,frame)
     self:NameUpdate(frame)
 end
+
 function mod:GainedTarget(frame)
     if not COLOUR_TARGET then return end
     if CanOverwriteHealthColor(frame) then
@@ -83,6 +87,7 @@ function mod:GainedTarget(frame)
         frame.HealthBar:SetStatusBarColor(unpack(COLOUR_TARGET))
     end
 end
+
 -- initialise ##################################################################
 function mod:Initialise()
     self:RegisterMessage('Show','NameUpdate')

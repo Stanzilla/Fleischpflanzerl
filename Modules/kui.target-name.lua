@@ -1,6 +1,6 @@
 -- luacheck: globals KuiNameplates KuiNameplatesCore
 
--- add the unit's target's name at the bottom right
+-- add the unit's target's name at the bottom right of the nameplate
 local folder,ns=...
 local addon = KuiNameplates
 local core = KuiNameplatesCore
@@ -48,6 +48,7 @@ function mod:Create(frame)
     tn:SetJustifyH("RIGHT")
     frame.TargetName = tn
 end
+
 function mod:Initialise()
     self:RegisterMessage('Create')
 end

@@ -43,12 +43,14 @@ local function sizer_OnSizeChanged(self,x,y)
         end
     end
 end
+
 local function fading_FadeRulesReset()
     -- add LOS rule
     plugin_fading:AddFadeRule(function(f)
         return not f.state.LOS and FADE_TO
     end,21,RULE_UID)
 end
+
 -- world entry alpha check loop ################################################
 local uf = CreateFrame('Frame')
 local uf_elapsed,uf_loop_world_entry = 0,0
@@ -68,6 +70,7 @@ local function uf_OnUpdate(self,elap)
         end
     end
 end
+
 -- messages ####################################################################
 function mod:Create(frame)
     -- hook to frames' sizer
@@ -76,13 +79,16 @@ function mod:Create(frame)
         sizer:HookScript('OnSizeChanged',sizer_OnSizeChanged)
     end
 end
+
 function mod:Show(frame)
     uf:SetScript('OnUpdate',uf_OnUpdate)
 end
+
 -- events ######################################################################
 function mod:PLAYER_ENTERING_WORLD()
     uf:SetScript('OnUpdate',uf_OnUpdate)
 end
+
 -- initialise ##################################################################
 function mod:OnEnable()
     fading_FadeRulesReset()
@@ -90,6 +96,7 @@ function mod:OnEnable()
     self:RegisterMessage('Show')
     self:RegisterEvent('PLAYER_ENTERING_WORLD')
 end
+
 function mod:Initialise()
     plugin_fading = addon:GetPlugin('Fading')
     self:AddCallback('Fading','FadeRulesReset',fading_FadeRulesReset)

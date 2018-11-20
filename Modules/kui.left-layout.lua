@@ -1,5 +1,6 @@
 -- luacheck: globals KuiNameplates KuiNameplatesCore
 
+-- aligns the unit and cast names to the left
 local addon = KuiNameplates
 local core = KuiNameplatesCore
 
@@ -22,6 +23,7 @@ local function UpdateNameTextPosition(f,...)
         f.NameText:SetPoint('RIGHT',f.HealthBar,2.5,0)
     end
 end
+
 local function UpdateHealthText(f,...)
     f.leftie_UpdateHealthText(f,...)
 
@@ -32,6 +34,7 @@ local function UpdateHealthText(f,...)
     f.HealthText:SetJustifyH('RIGHT')
     f.HealthText:SetPoint('BOTTOMRIGHT',f.HealthBar,'TOPRIGHT',-2.5,core.profile.name_vertical_offset)
 end
+
 local function UpdateSpellNamePosition(f,...)
     f.leftie_UpdateSpellNamePosition(f,...)
 
@@ -42,6 +45,7 @@ local function UpdateSpellNamePosition(f,...)
         2.5, core.profile.castbar_name_vertical_offset
     )
 end
+
 -- messages ####################################################################
 function mod:Create(f)
     if f.NameText and not f.leftie_UpdateNameTextPosition then
@@ -60,6 +64,7 @@ function mod:Create(f)
         f:UpdateSpellNamePosition()
     end
 end
+
 -- register ####################################################################
 function mod:OnEnable()
     self:RegisterMessage('Create')
