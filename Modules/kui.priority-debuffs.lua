@@ -1,6 +1,7 @@
 -- luacheck: globals KuiNameplates KuiNameplatesCore
 
 -- adds an priority tracker to the left of the nameplate
+-- if you add debuffs here, you have to add them to the blacklist in KuiSpellConfig or they will show up twice
 local addon = KuiNameplates
 local core = KuiNameplatesCore
 
@@ -17,6 +18,7 @@ function mod:Create(f)
         filter = 'HARMFUL|PLAYER',
         whitelist = {
             [980] = true, -- agony
+            [80240] = true -- havoc
         },
     })
     agony:SetFrameLevel(0)

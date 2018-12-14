@@ -2,7 +2,7 @@
 -- luacheck: globals ScrollFrameTemplate_OnMouseWheel InterfaceOptionsFrameAddOnsList CinematicFrame CinematicFrame_CancelCinematic InterfaceOptionsFrameAddOns
 -- luacheck: globals PaperDollFrame_SetMovementSpeed MovementSpeed_OnUpdate MovementSpeed_OnEnter CharacterStatsPane PAPERDOLL_STATCATEGORIES FramePool_HideAndClearAnchors
 
---[[ Custom Slash Handlers ]]--
+-- Custom Slash Handlers
 SlashCmdList['RELOAD'] = function() ReloadUI() end
 SLASH_RELOAD1 = '/rl'
 
@@ -12,7 +12,7 @@ SLASH_GM1 = '/gm'
 SlashCmdList['PQUIT'] = function() LeaveParty() end
 SLASH_PQUIT = '/pquit'
 
---[[ Dungeon Group Ready Spam ]]--
+-- Dungeon Group Ready Spam
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("LFG_PROPOSAL_SHOW")
 frame:SetScript("OnEvent", function()
@@ -21,7 +21,7 @@ frame:SetScript("OnEvent", function()
     print("|CFFFF0000----------------------------------------")
 end)
 
---[[ Addon Config Scroll Fix ]]--
+-- Addon Config Scroll Fix
 local function func(self, val)
     ScrollFrameTemplate_OnMouseWheel(InterfaceOptionsFrameAddOnsList, val)
 end
@@ -32,14 +32,13 @@ for i = 1, #InterfaceOptionsFrameAddOns.buttons do
     f:SetScript("OnMouseWheel", func)
 end
 
---[[ Bypass the buggy cancel cinematic confirmation dialog ]]--
+-- Bypass the buggy cancel cinematic confirmation dialog
 hooksecurefunc(CinematicFrame.closeDialog,"Show",function()
     CinematicFrame.closeDialog:Hide()
     CinematicFrame_CancelCinematic()
 end)
 
 -- add the movement speed to the character stat sheet
-
 function PaperDollFrame_SetMovementSpeed(statFrame, unit)
 	statFrame.wasSwimming = nil
 	statFrame.unit = unit
@@ -58,3 +57,6 @@ CharacterStatsPane.statsFramePool.resetterFunc =
 		FramePool_HideAndClearAnchors(pool, frame)
 	end
 table.insert(PAPERDOLL_STATCATEGORIES[1].stats, { stat = "MOVESPEED"})
+
+-- Easy Delete
+hooksecurefunc(StaticPopupDialogs["DELETE_GOOD_ITEM"],"OnShow",function(s) s.editBox:SetText(DELETE_ITEM_CONFIRM_STRING) end)

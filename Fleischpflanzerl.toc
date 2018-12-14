@@ -1,4 +1,4 @@
-## Interface: 80000
+## Interface: 80100
 ## Title: Fleischpflanzerl
 ## Notes: Nom nom nom!
 ## Author: Stanzilla

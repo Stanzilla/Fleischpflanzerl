@@ -13,7 +13,6 @@ local names = {
     ['Arcane Sentinel'] = {1, 0, 0},
     ['Duskwatch Battlemaster'] = {1, 0, 1},
     ['Volatile Scorpid'] = {1, 0, 1},
-    ['Fuming Imp'] = {1, 0, 1},
     ['Leystalker Dro'] = {1, 0, 1},
     ['Hand from Beyond'] = {1, 0, 1},
     ['Explosives'] = {1, 0, 1},
@@ -33,7 +32,7 @@ local COLOUR_TARGET = {.4,.8,.4}
 
 -- To overwrite tank mode, set this to 6
 -- To overwrite execute, set this to 5
-local PRIORITY = 3
+local PRIORITY = 2
 
 -- local functions #############################################################
 -- reimplemented locally in execute & tankmode
