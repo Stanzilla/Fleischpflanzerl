@@ -57,13 +57,13 @@ rm:SetScript("OnEvent", function()
         if guildRepair and CanGuildBankRepair() and cost <= GetGuildBankMoney() and (cost <= GetGuildBankWithdrawMoney() or GetGuildBankWithdrawMoney() == -1) then
             if guildOnlyRaid and GetNumGroupMembers() ~= 0 then
                 GuildRepair(cost)
-                print("1")
+                print("Guild-Repair")
             elseif not guildOnlyRaid then
                 GuildRepair(cost)
-                print("2")
+                print("Guild-Repair")
             elseif cost <= money then
                 SelfRepair(cost)
-                print("3")
+                print("Self-Repair")
             else
                 print("Not enough money to automatically repair")
             end

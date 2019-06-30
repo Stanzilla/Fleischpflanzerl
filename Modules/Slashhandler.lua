@@ -60,3 +60,7 @@ table.insert(PAPERDOLL_STATCATEGORIES[1].stats, { stat = "MOVESPEED"})
 
 -- Easy Delete
 hooksecurefunc(StaticPopupDialogs["DELETE_GOOD_ITEM"],"OnShow",function(s) s.editBox:SetText(DELETE_ITEM_CONFIRM_STRING) end)
+
+
+-- hooksecurefunc("SendChatMessage", print)
+-- hooksecurefunc(C_ChatInfo, "SendAddonMessage", print)
