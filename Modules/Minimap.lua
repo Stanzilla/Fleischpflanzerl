@@ -5,11 +5,13 @@ local addon = ...
 -- luacheck: globals MiniMapVoiceChatFrame MinimapNorthTag WorldStateAlwaysUpFrame FriendsFont_Large FriendsFont_Normal FriendsFont_Small FriendsFont_UserText
 -- luacheck: globals MiniMapTrackingDropDown GameTimeFrame TimeManagerClockTicker OrderHallCommandBar GarrisonLandingPageMinimapButton GarrisonLandingPageTutorialBox
 -- luacheck: globals TimeManagerClockButton TimeManagerAlarmFiredTexture GameTimeCalendarEventAlarmTexture GameTimeCalendarInvitesTexture GameTimeCalendarInvitesGlow
+-- luacheck: globals MinimapZoneText MinimapZoneTextButton
 
 local FPMinimap = CreateFrame('Frame', 'FPMinimap', UIParent)
 FPMinimap:SetScript('OnEvent', function(self, event, ...) self[event](self, event, ...) end)
 FPMinimap:RegisterEvent('ADDON_LOADED')
--- FPMinimap:RegisterEvent('PLAYER_ENTERING_WORLD')
+FPMinimap:RegisterEvent('ZONE_CHANGED')
+FPMinimap:RegisterEvent('ZONE_CHANGED_INDOORS')
 FPMinimap:RegisterEvent('ZONE_CHANGED_NEW_AREA')
 --FPMinimap:RegisterEvent('INSTANCE_ENCOUNTER_ENGAGE_UNIT')
 
@@ -19,14 +21,6 @@ local classColor = CUSTOM_CLASS_COLORS and
     RAID_CLASS_COLORS[select(2, UnitClass('player'))]
 local color = {r = 255/255, g = 255/255, b = 255/255 }
 
-function FPMinimap:ZONE_CHANGED_NEW_AREA()
---SetMapToCurrentZone()
-end
-
-function FPMinimap:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
-    return
-end
-
 local function SetFont(obj, font, size, style, r, g, b, sr, sg, sb, sox, soy)
     obj:SetFont(font, size, style)
     if sr and sg and sb then obj:SetShadowColor(sr, sg, sb) end
@@ -35,8 +29,8 @@ local function SetFont(obj, font, size, style, r, g, b, sr, sg, sb, sox, soy)
     elseif r then obj:SetAlpha(r) end
 end
 
-function FPMinimap:ADDON_LOADED()
-    Minimap:SetFrameStrata("LOW")
+local function FixButtons()
+     -- Minimap:SetFrameStrata("LOW")
 
     MiniMapTracking:Hide()
 
@@ -58,31 +52,57 @@ function FPMinimap:ADDON_LOADED()
     MiniMapInstanceDifficulty:UnregisterAllEvents()
     MiniMapInstanceDifficulty:Hide()
 
-    MiniMapMailIcon:Hide()
+    --MiniMapMailIcon:Hide()
+    MiniMapMailIcon:SetTexture('Interface\\AddOns\\Fleischpflanzerl\\Modules\\mail.tga')
     MiniMapMailBorder:SetTexture('')
     MiniMapMailFrame:SetParent(Minimap)
     MiniMapMailFrame:ClearAllPoints()
-    MiniMapMailFrame:SetPoint('TOP')
-    MiniMapMailFrame:SetHeight(8)
+    MiniMapMailFrame:SetPoint('BOTTOMRIGHT', 2, -8)
+    --MiniMapMailFrame:SetHeight(8)
 
-    local MiniMapMailText = MiniMapMailFrame:CreateFontString(nil, 'OVERLAY')
-    MiniMapMailText:SetFont(myfont, 13, 'OUTLINE')
-    MiniMapMailText:SetPoint('BOTTOM', 0, 2)
-    MiniMapMailText:SetText('New Mail!')
-    MiniMapMailText:SetTextColor(1, 1, 1)
+    -- local MiniMapMailText = MiniMapMailFrame:CreateFontString(nil, 'OVERLAY')
+    -- MiniMapMailText:SetFont(myfont, 13, 'OUTLINE')
+    -- MiniMapMailText:SetPoint('BOTTOM', 0, 2)
+    -- MiniMapMailText:SetText('New Mail!')
+    -- MiniMapMailText:SetTextColor(1, 1, 1)
 
     --MiniMapVoiceChatFrame:Hide()
     MinimapNorthTag:SetAlpha(0)
 
-    -- WorldStateAlwaysUpFrame:ClearAllPoints()
-    -- WorldStateAlwaysUpFrame:SetPoint("TOP", UIParent, "TOP", 0, -40)
+    MinimapZoneTextButton:ClearAllPoints()
+    MinimapZoneTextButton:SetPoint("BOTTOM", Minimap, "TOP", -8, -10)
+
+    MinimapZoneText:SetPoint("TOP", MinimapZoneTextButton, "TOP", 9, -4)
+    MinimapZoneText:SetFont(myfont, 12, 'OUTLINE')
+    MinimapZoneText:SetTextColor(1, 1, 1, 0.6)
+    MinimapZoneText:SetShadowOffset(0, 0)
 
     WorldMapFrame.BorderFrame.MaximizeMinimizeFrame:Hide()
+end
 
+function FPMinimap:ADDON_LOADED()
+    FixButtons()
     SetFont(FriendsFont_Large,          myfont, 12, nil, nil, nil, nil, nil, nil, nil, nil, nil)
     SetFont(FriendsFont_Normal,         myfont, 12, nil, nil, nil, nil, nil, nil, nil, nil, nil)
     SetFont(FriendsFont_Small,          myfont, 11, nil, nil, nil, nil, nil, nil, nil, nil, nil)
     SetFont(FriendsFont_UserText,       myfont, 11, nil, nil, nil, nil, nil, nil, nil, nil, nil)
+end
+
+function FPMinimap:ZONE_CHANGED()
+    FixButtons()
+end
+
+function FPMinimap:ZONE_CHANGED_INDOORS()
+    FixButtons()
+end
+
+function FPMinimap:ZONE_CHANGED_NEW_AREA()
+    --SetMapToCurrentZone()
+    FixButtons()
+end
+
+function FPMinimap:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
+    return
 end
 
 --[[ Tracking Menu ]]--
@@ -101,13 +121,13 @@ FPMinimap.Coord:SetWidth(40)
 FPMinimap.Coord:SetHeight(14)
 FPMinimap.Coord:SetPoint('BOTTOMRIGHT', Minimap, -10, 2)
 FPMinimap.Coord:RegisterForClicks('AnyUp')
-FPMinimap.Coord:SetAlpha(0.6)
 
 FPMinimap.Coord.Text = FPMinimap.Coord:CreateFontString(nil, 'OVERLAY')
 FPMinimap.Coord.Text:SetPoint('CENTER', FPMinimap.Coord)
 FPMinimap.Coord.Text:SetFont(myfont, 16, 'OUTLINE')
-FPMinimap.Coord.Text:SetTextColor(1, 1, 1)
+FPMinimap.Coord.Text:SetTextColor(1, 1, 1, 0.6)
 FPMinimap.Coord.Text:SetShadowOffset(0, 0)
+
 -- FPMinimap.Coord:SetScript('OnClick', function() ToggleFrame(WorldMapFrame) end)
 
 -- local total = 0
@@ -155,8 +175,7 @@ for _, texture in pairs({GameTimeCalendarEventAlarmTexture, GameTimeCalendarInvi
     end
 
     texture.Hide = function()
-        GameTimeFrame:GetFontString():SetTextColor(1, 1, 1)
-        GameTimeFrame:GetFontString():SetAlpha(0.6)
+        GameTimeFrame:GetFontString():SetTextColor(1, 1, 1, 0.6)
     end
 end
 
@@ -166,8 +185,7 @@ if (not IsAddOnLoaded('Blizzard_TimeManager')) then
 end
 TimeManagerClockTicker:SetFont(myfont, 16, 'OUTLINE')
 TimeManagerClockTicker:SetShadowOffset(0, 0)
-TimeManagerClockTicker:SetTextColor(1, 1, 1) --(classColor.r, classColor.g, classColor.b)
-TimeManagerClockTicker:SetAlpha(0.6)
+TimeManagerClockTicker:SetTextColor(1, 1, 1, 0.6) --(classColor.r, classColor.g, classColor.b)
 TimeManagerClockTicker:SetPoint('BOTTOMLEFT', TimeManagerClockButton)
 
 TimeManagerClockButton:GetRegions():Hide()
@@ -265,10 +283,8 @@ rd:SetScript("OnEvent", function()
     end
 
     if GuildInstanceDifficulty:IsShown() then
-        rdt:SetTextColor(color.r, color.g, color.b)
-        rdt:SetAlpha(0.6)
+        rdt:SetTextColor(color.r, color.g, color.b, 0.6)
     else
-        rdt:SetTextColor(color.r, color.g, color.b)
-        rdt:SetAlpha(0.6)
+        rdt:SetTextColor(color.r, color.g, color.b, 0.6)
     end
 end)
