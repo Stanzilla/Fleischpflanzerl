@@ -25,6 +25,7 @@ StanUICV:SetScript("OnEvent", function()
         SetCVar("nameplatePersonalShowAlways", 0)
         SetCVar("nameplatePersonalShowWithTarget", 0)
         SetCVar("nameplateShowAll", 1)
+        SetCVar("nameplateOccludedAlphaMult", 0.1)
         CameraZoomOut(100)
 end)
 
