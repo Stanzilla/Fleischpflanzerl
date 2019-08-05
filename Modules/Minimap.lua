@@ -68,16 +68,20 @@ local function FixButtons()
 
     --MiniMapVoiceChatFrame:Hide()
     MinimapNorthTag:SetAlpha(0)
+    if not IsInInstance() then
+        MinimapZoneTextButton:ClearAllPoints()
+        MinimapZoneTextButton:SetPoint("BOTTOM", Minimap, "TOP", -8, -10)
 
-    MinimapZoneTextButton:ClearAllPoints()
-    MinimapZoneTextButton:SetPoint("BOTTOM", Minimap, "TOP", -8, -10)
-
-    MinimapZoneText:SetPoint("TOP", MinimapZoneTextButton, "TOP", 9, -4)
-    MinimapZoneText:SetFont(myfont, 12, 'OUTLINE')
-    MinimapZoneText:SetTextColor(1, 1, 1, 0.6)
-    MinimapZoneText:SetShadowOffset(0, 0)
+        MinimapZoneText:SetPoint("TOP", MinimapZoneTextButton, "TOP", 9, -4)
+        MinimapZoneText:SetFont(myfont, 12, 'OUTLINE')
+        MinimapZoneText:SetTextColor(1, 1, 1, 0.6)
+        MinimapZoneText:SetShadowOffset(0, 0)
+    else
+        MinimapZoneTextButton:Hide()
+    end
 
     WorldMapFrame.BorderFrame.MaximizeMinimizeFrame:Hide()
+    WorldMapFrame.SidePanelToggle:Hide()
 end
 
 function FPMinimap:ADDON_LOADED()
@@ -86,6 +90,21 @@ function FPMinimap:ADDON_LOADED()
     SetFont(FriendsFont_Normal,         myfont, 12, nil, nil, nil, nil, nil, nil, nil, nil, nil)
     SetFont(FriendsFont_Small,          myfont, 11, nil, nil, nil, nil, nil, nil, nil, nil, nil)
     SetFont(FriendsFont_UserText,       myfont, 11, nil, nil, nil, nil, nil, nil, nil, nil, nil)
+
+    hooksecurefunc(WorldMapFrame, "SetOverlayFrameLocation", function(self, frame, location)
+        if not frame.BountyName then return end
+        frame:ClearAllPoints()
+        frame:SetScale(0.9)
+        if location == LE_MAP_OVERLAY_DISPLAY_LOCATION_BOTTOM_LEFT then
+            frame:SetPoint("BOTTOMLEFT", frame.relativeFrame, 15, -4)
+        elseif location == LE_MAP_OVERLAY_DISPLAY_LOCATION_TOP_LEFT then
+            frame:SetPoint("TOPLEFT", frame.relativeFrame, 15, -15)
+        elseif location == LE_MAP_OVERLAY_DISPLAY_LOCATION_BOTTOM_RIGHT then
+            frame:SetPoint("BOTTOMRIGHT", frame.relativeFrame, 4, -4)
+        elseif location == LE_MAP_OVERLAY_DISPLAY_LOCATION_TOP_RIGHT then
+            frame:SetPoint("TOPRIGHT", frame.relativeFrame, -15, -15)
+        end
+    end)
 end
 
 function FPMinimap:ZONE_CHANGED()

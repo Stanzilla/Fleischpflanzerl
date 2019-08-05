@@ -64,3 +64,4 @@ hooksecurefunc(StaticPopupDialogs["DELETE_GOOD_ITEM"],"OnShow",function(s) s.edi
 
 -- hooksecurefunc("SendChatMessage", print)
 -- hooksecurefunc(C_ChatInfo, "SendAddonMessage", print)
+-- hooksecurefunc(C_ChatInfo, 'SendAddonMessage', function() print(debugstack(2)) end)
