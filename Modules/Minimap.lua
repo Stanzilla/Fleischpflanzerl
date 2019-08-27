@@ -1,4 +1,4 @@
-local addon = ...
+local addonName, Fleischpflanzerl = ...
 
 -- luacheck: globals Minimap MiniMapTracking MiniMapChallengeMode QueueStatusMinimapButton QueueStatusMinimapButtonBorder
 -- luacheck: globals GuildInstanceDifficulty MiniMapInstanceDifficulty MiniMapMailIcon MiniMapMailFrame MiniMapMailBorder
@@ -6,6 +6,8 @@ local addon = ...
 -- luacheck: globals MiniMapTrackingDropDown GameTimeFrame TimeManagerClockTicker OrderHallCommandBar GarrisonLandingPageMinimapButton GarrisonLandingPageTutorialBox
 -- luacheck: globals TimeManagerClockButton TimeManagerAlarmFiredTexture GameTimeCalendarEventAlarmTexture GameTimeCalendarInvitesTexture GameTimeCalendarInvitesGlow
 -- luacheck: globals MinimapZoneText MinimapZoneTextButton
+
+if Fleischpflanzerl.IsClassic() then return end
 
 local FPMinimap = CreateFrame('Frame', 'FPMinimap', UIParent)
 FPMinimap:SetScript('OnEvent', function(self, event, ...) self[event](self, event, ...) end)
@@ -32,25 +34,25 @@ end
 local function FixButtons()
      -- Minimap:SetFrameStrata("LOW")
 
-    MiniMapTracking:Hide()
+        MiniMapTracking:Hide()
 
-    MiniMapChallengeMode:ClearAllPoints()
-    MiniMapChallengeMode:SetPoint("BOTTOMRIGHT", Minimap, "TOPRIGHT", -2, -2)
+        MiniMapChallengeMode:ClearAllPoints()
+        MiniMapChallengeMode:SetPoint("BOTTOMRIGHT", Minimap, "TOPRIGHT", -2, -2)
 
-    QueueStatusMinimapButtonBorder:SetTexture()
-    QueueStatusMinimapButton:ClearAllPoints()
-    QueueStatusMinimapButton:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -2, 0)
+        QueueStatusMinimapButtonBorder:SetTexture()
+        QueueStatusMinimapButton:ClearAllPoints()
+        QueueStatusMinimapButton:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -2, 0)
 
-    GuildInstanceDifficulty:ClearAllPoints()
-    GuildInstanceDifficulty:SetParent(Minimap)
-    GuildInstanceDifficulty:SetPoint('TOPLEFT', Minimap, 1, 5)
-    GuildInstanceDifficulty:UnregisterAllEvents()
-    GuildInstanceDifficulty:Hide()
+        GuildInstanceDifficulty:ClearAllPoints()
+        GuildInstanceDifficulty:SetParent(Minimap)
+        GuildInstanceDifficulty:SetPoint('TOPLEFT', Minimap, 1, 5)
+        GuildInstanceDifficulty:UnregisterAllEvents()
+        GuildInstanceDifficulty:Hide()
 
-    MiniMapInstanceDifficulty:ClearAllPoints()
-    MiniMapInstanceDifficulty:SetPoint('TOPLEFT', Minimap, 1, 5)
-    MiniMapInstanceDifficulty:UnregisterAllEvents()
-    MiniMapInstanceDifficulty:Hide()
+        MiniMapInstanceDifficulty:ClearAllPoints()
+        MiniMapInstanceDifficulty:SetPoint('TOPLEFT', Minimap, 1, 5)
+        MiniMapInstanceDifficulty:UnregisterAllEvents()
+        MiniMapInstanceDifficulty:Hide()
 
     --MiniMapMailIcon:Hide()
     MiniMapMailIcon:SetTexture('Interface\\AddOns\\Fleischpflanzerl\\Modules\\mail.tga')
@@ -91,20 +93,20 @@ function FPMinimap:ADDON_LOADED()
     SetFont(FriendsFont_Small,          myfont, 11, nil, nil, nil, nil, nil, nil, nil, nil, nil)
     SetFont(FriendsFont_UserText,       myfont, 11, nil, nil, nil, nil, nil, nil, nil, nil, nil)
 
-    hooksecurefunc(WorldMapFrame, "SetOverlayFrameLocation", function(self, frame, location)
-        if not frame.BountyName then return end
-        frame:ClearAllPoints()
-        frame:SetScale(0.9)
-        if location == LE_MAP_OVERLAY_DISPLAY_LOCATION_BOTTOM_LEFT then
-            frame:SetPoint("BOTTOMLEFT", frame.relativeFrame, 15, -4)
-        elseif location == LE_MAP_OVERLAY_DISPLAY_LOCATION_TOP_LEFT then
-            frame:SetPoint("TOPLEFT", frame.relativeFrame, 15, -15)
-        elseif location == LE_MAP_OVERLAY_DISPLAY_LOCATION_BOTTOM_RIGHT then
-            frame:SetPoint("BOTTOMRIGHT", frame.relativeFrame, 4, -4)
-        elseif location == LE_MAP_OVERLAY_DISPLAY_LOCATION_TOP_RIGHT then
-            frame:SetPoint("TOPRIGHT", frame.relativeFrame, -15, -15)
-        end
-    end)
+        hooksecurefunc(WorldMapFrame, "SetOverlayFrameLocation", function(self, frame, location)
+            if not frame.BountyName then return end
+            frame:ClearAllPoints()
+            frame:SetScale(0.9)
+            if location == LE_MAP_OVERLAY_DISPLAY_LOCATION_BOTTOM_LEFT then
+                frame:SetPoint("BOTTOMLEFT", frame.relativeFrame, 15, -4)
+            elseif location == LE_MAP_OVERLAY_DISPLAY_LOCATION_TOP_LEFT then
+                frame:SetPoint("TOPLEFT", frame.relativeFrame, 15, -15)
+            elseif location == LE_MAP_OVERLAY_DISPLAY_LOCATION_BOTTOM_RIGHT then
+                frame:SetPoint("BOTTOMRIGHT", frame.relativeFrame, 4, -4)
+            elseif location == LE_MAP_OVERLAY_DISPLAY_LOCATION_TOP_RIGHT then
+                frame:SetPoint("TOPRIGHT", frame.relativeFrame, -15, -15)
+            end
+        end)
 end
 
 function FPMinimap:ZONE_CHANGED()

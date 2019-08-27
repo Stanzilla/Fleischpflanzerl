@@ -1,7 +1,13 @@
+local addonName, Fleischpflanzerl = ...
+
 local StanUICV = CreateFrame("Frame")
 StanUICV:RegisterEvent("VARIABLES_LOADED")
 StanUICV:SetScript("OnEvent", function()
-        C_TransmogCollection.SetShowMissingSourceInItemTooltips(true)
+        if not Fleischpflanzerl.IsClassic() then
+            C_TransmogCollection.SetShowMissingSourceInItemTooltips(true)
+            SetCVar("fstack_preferParentKeys", 0)
+        end
+        SetCVar("minimumAutomaticUiScale", 0.64)
         SetCVar("Autointeract", 0)
         SetCVar("cameraDistanceMaxZoomFactor", 2.6) -- Sets the factor by which cameraDistanceMax is multiplied.
         SetCVar("ShowClassColorInNameplate", 1) -- Turns on class coloring in nameplates.
@@ -26,7 +32,6 @@ StanUICV:SetScript("OnEvent", function()
         SetCVar("nameplatePersonalShowWithTarget", 0)
         SetCVar("nameplateShowAll", 1)
         SetCVar("nameplateOccludedAlphaMult", 0.1)
-        SetCVar("fstack_preferParentKeys", 0)
         CameraZoomOut(100)
 end)
 
