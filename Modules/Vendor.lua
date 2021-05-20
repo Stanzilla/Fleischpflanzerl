@@ -1,7 +1,17 @@
+local addonName, Fleischpflanzerl = ...
+
 -- Repair Config
 local guildRepair = true -- Always use guild repair (true) or always use own money (false)
 local guildOnlyRaid = false -- Guild repair ONLY while in a raid group
 local printMessage = true -- Prints how much the repair was
+
+local CanGuildBankRepair = CanGuildBankRepair
+
+if Fleischpflanzerl.IsRetail() then
+    CanGuildBankRepair = CanGuildBankRepair
+else
+    CanGuildBankRepair = function() return false end
+end
 
 local function SellTrash()
     --sell trash

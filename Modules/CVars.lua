@@ -3,7 +3,7 @@ local addonName, Fleischpflanzerl = ...
 local StanUICV = CreateFrame("Frame")
 StanUICV:RegisterEvent("VARIABLES_LOADED")
 StanUICV:SetScript("OnEvent", function()
-        if not Fleischpflanzerl.IsClassic() then
+        if Fleischpflanzerl.IsRetail() then
             C_TransmogCollection.SetShowMissingSourceInItemTooltips(true)
             SetCVar("fstack_preferParentKeys", 0)
         end

@@ -15,7 +15,7 @@ SLASH_GM1 = '/gm'
 SlashCmdList['PQUIT'] = function() LeaveParty() end
 SLASH_PQUIT = '/pquit'
 
-if not Fleischpflanzerl.IsClassic() then
+if Fleischpflanzerl.IsRetail() then
     -- Dungeon Group Ready Spam
     local frame = CreateFrame("Frame")
     frame:RegisterEvent("LFG_PROPOSAL_SHOW")

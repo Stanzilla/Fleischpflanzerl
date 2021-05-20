@@ -48,8 +48,6 @@ end
 CHAT_TAB_HIDE_DELAY = 0
 CHAT_FRAME_TAB_ALERTING_MOUSEOVER_ALPHA = 1
 CHAT_FRAME_TAB_ALERTING_NOMOUSE_ALPHA = 0
-SCREENSHOT_SUCCESS = ""
-
 
 -- Making the chat background invisibile
 for index, value in ipairs(CHAT_FRAME_TEXTURES) do
