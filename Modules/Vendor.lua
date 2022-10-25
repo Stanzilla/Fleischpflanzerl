@@ -10,7 +10,9 @@ local CanGuildBankRepair = CanGuildBankRepair
 if Fleischpflanzerl.IsRetail() then
     CanGuildBankRepair = CanGuildBankRepair
 else
-    CanGuildBankRepair = function() return false end
+    CanGuildBankRepair = function()
+        return false
+    end
 end
 
 local function SellTrash()

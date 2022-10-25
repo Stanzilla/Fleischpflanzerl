@@ -6,14 +6,20 @@
 local addonName, Fleischpflanzerl = ...
 
 -- Custom Slash Handlers
-SlashCmdList['RELOAD'] = function() ReloadUI() end
-SLASH_RELOAD1 = '/rl'
+SlashCmdList["RELOAD"] = function()
+    ReloadUI()
+end
+SLASH_RELOAD1 = "/rl"
 
-SlashCmdList['GM'] = function() ToggleHelpFrame() end
-SLASH_GM1 = '/gm'
+SlashCmdList["GM"] = function()
+    ToggleHelpFrame()
+end
+SLASH_GM1 = "/gm"
 
-SlashCmdList['PQUIT'] = function() LeaveParty() end
-SLASH_PQUIT = '/pquit'
+SlashCmdList["PQUIT"] = function()
+    LeaveParty()
+end
+SLASH_PQUIT = "/pquit"
 
 if Fleischpflanzerl.IsRetail() then
     -- Dungeon Group Ready Spam
@@ -36,14 +42,13 @@ if Fleischpflanzerl.IsRetail() then
         statFrame:Show()
     end
 
-    CharacterStatsPane.statsFramePool.resetterFunc =
-        function(pool, frame)
-            frame:SetScript("OnUpdate", nil)
-            frame.onEnterFunc = nil
-            frame.UpdateTooltip = nil
-            FramePool_HideAndClearAnchors(pool, frame)
-        end
-    table.insert(PAPERDOLL_STATCATEGORIES[1].stats, { stat = "MOVESPEED"})
+    CharacterStatsPane.statsFramePool.resetterFunc = function(pool, frame)
+        frame:SetScript("OnUpdate", nil)
+        frame.onEnterFunc = nil
+        frame.UpdateTooltip = nil
+        FramePool_HideAndClearAnchors(pool, frame)
+    end
+    table.insert(PAPERDOLL_STATCATEGORIES[1].stats, { stat = "MOVESPEED" })
 end
 
 -- Addon Config Scroll Fix
@@ -52,20 +57,21 @@ local function func(self, val)
 end
 
 for i = 1, #InterfaceOptionsFrameAddOns.buttons do
-    local f = _G["InterfaceOptionsFrameAddOnsButton"..i]
+    local f = _G["InterfaceOptionsFrameAddOnsButton" .. i]
     f:EnableMouseWheel()
     f:SetScript("OnMouseWheel", func)
 end
 
 -- Bypass the buggy cancel cinematic confirmation dialog
-hooksecurefunc(CinematicFrame.closeDialog,"Show",function()
+hooksecurefunc(CinematicFrame.closeDialog, "Show", function()
     CinematicFrame.closeDialog:Hide()
     CinematicFrame_CancelCinematic()
 end)
 
 -- Easy Delete
-hooksecurefunc(StaticPopupDialogs["DELETE_GOOD_ITEM"],"OnShow",function(s) s.editBox:SetText(DELETE_ITEM_CONFIRM_STRING) end)
-
+hooksecurefunc(StaticPopupDialogs["DELETE_GOOD_ITEM"], "OnShow", function(s)
+    s.editBox:SetText(DELETE_ITEM_CONFIRM_STRING)
+end)
 
 -- hooksecurefunc("SendChatMessage", print)
 -- hooksecurefunc(C_ChatInfo, "SendAddonMessage", print)

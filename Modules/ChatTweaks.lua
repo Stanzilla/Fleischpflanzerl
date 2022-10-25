@@ -7,7 +7,7 @@ hooksecurefunc("FCF_FadeOutChatFrame", function(chatFrame)
     local frameName = chatFrame:GetName()
 
     for index, value in pairs(CHAT_FRAME_TEXTURES) do
-        local object = _G[frameName..value]
+        local object = _G[frameName .. value]
         if object:IsShown() then
             UIFrameFadeRemoveFrame(object)
             object:SetAlpha(0)
@@ -20,7 +20,7 @@ hooksecurefunc("FCF_FadeOutChatFrame", function(chatFrame)
         end
     end
 
-    local chatTab = _G[frameName.."Tab"]
+    local chatTab = _G[frameName .. "Tab"]
     if not chatTab.alerting then
         UIFrameFadeRemoveFrame(chatTab)
         chatTab:SetAlpha(0)
@@ -32,14 +32,14 @@ hooksecurefunc("FCF_FadeOutChatFrame", function(chatFrame)
     end
 end)
 hooksecurefunc("FCFTab_UpdateAlpha", function(chatFrame)
-    local chatTab = _G[chatFrame:GetName().."Tab"]
+    local chatTab = _G[chatFrame:GetName() .. "Tab"]
     if not chatFrame.hasBeenFaded and not chatTab.alerting then
         chatTab:SetAlpha(0)
     end
 end)
 
 -- Update alpha for non-docked chat frame tabs
-for i=1, NUM_CHAT_WINDOWS do
+for i = 1, NUM_CHAT_WINDOWS do
     local chatTab = _G[("ChatFrame%dTab"):format(i)]
     chatTab:SetAlpha(0)
 end
@@ -51,18 +51,18 @@ CHAT_FRAME_TAB_ALERTING_NOMOUSE_ALPHA = 0
 
 -- Making the chat background invisibile
 for index, value in ipairs(CHAT_FRAME_TEXTURES) do
-    for i=1, NUM_CHAT_WINDOWS, 1 do
-        _G["ChatFrame" .. i .. value]:Hide();
-        _G["ChatFrame" .. i .. value].Show = function() end;
-        _G["ChatFrame" .. i .. value]:SetAlpha(0);
-        _G["ChatFrame" .. i .. value].SetAlpha = function() end;
+    for i = 1, NUM_CHAT_WINDOWS, 1 do
+        _G["ChatFrame" .. i .. value]:Hide()
+        _G["ChatFrame" .. i .. value].Show = function() end
+        _G["ChatFrame" .. i .. value]:SetAlpha(0)
+        _G["ChatFrame" .. i .. value].SetAlpha = function() end
     end
 end
 
-local function RemoveCurrentRealmName(self, event, msg, author, ...)   --code from Epicgrim remade by Tukz
+local function RemoveCurrentRealmName(self, event, msg, author, ...) --code from Epicgrim remade by Tukz
     local realmName = string.gsub(GetRealmName(), " ", "")
     if msg:find("-" .. realmName) then
-        return false, gsub(msg, "%-"..realmName, ""), author, ...
+        return false, gsub(msg, "%-" .. realmName, ""), author, ...
     end
 end
 
@@ -89,6 +89,22 @@ local function filter(self, event, msg, ...)
     end
     return false, msg, ...
 end
-for _,event in pairs{"SAY", "YELL", "GUILD", "GUILD_OFFICER", "WHISPER", "WHISPER_INFORM", "PARTY", "PARTY_LEADER", "RAID", "RAID_LEADER", "INSTANCE_CHAT", "INSTANCE_CHAT_LEADER", "BATTLEGROUND", "BATTLEGROUND_LEADER", "CHANNEL"} do
-    ChatFrame_AddMessageEventFilter("CHAT_MSG_"..event, filter)
+for _, event in pairs({
+    "SAY",
+    "YELL",
+    "GUILD",
+    "GUILD_OFFICER",
+    "WHISPER",
+    "WHISPER_INFORM",
+    "PARTY",
+    "PARTY_LEADER",
+    "RAID",
+    "RAID_LEADER",
+    "INSTANCE_CHAT",
+    "INSTANCE_CHAT_LEADER",
+    "BATTLEGROUND",
+    "BATTLEGROUND_LEADER",
+    "CHANNEL",
+}) do
+    ChatFrame_AddMessageEventFilter("CHAT_MSG_" .. event, filter)
 end
