@@ -1,6 +1,7 @@
-## Interface: 90005
+## Interface: 100000
 ## Interface-Classic: 11307
 ## Interface-BCC: 20501
+## Interface-WotLK: 30400
 ## Title: Fleischpflanzerl
 ## Notes: Nom nom nom!
 ## Author: Stanzilla
