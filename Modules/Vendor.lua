@@ -18,6 +18,9 @@ end
 local function SellTrash()
     --sell trash
     local bag, slot, item
+    local GetContainerNumSlots = C_Container and C_Container.GetContainerNumSlots or GetContainerNumSlots
+    local GetContainerItemLink = C_Container and C_Container.GetContainerItemLink or GetContainerItemLink
+    local UseContainerItem = C_Container and C_Container.UseContainerItem or UseContainerItem
     for bag = 0, 4 do
         if GetContainerNumSlots(bag) > 0 then
             for slot = 1, GetContainerNumSlots(bag) do

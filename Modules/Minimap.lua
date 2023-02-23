@@ -17,78 +17,48 @@ FPMinimap:RegisterEvent("ZONE_CHANGED_INDOORS")
 FPMinimap:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 --FPMinimap:RegisterEvent('INSTANCE_ENCOUNTER_ENGAGE_UNIT')
 
-local myfont = "Interface\\AddOns\\CustomMedia\\Media\\Fonts\\myriadprosemibold.ttf"
+local myFont = "Interface\\AddOns\\CustomMedia\\Media\\Fonts\\myriadprosemibold.ttf"
+local myLowerFont = "Interface\\AddOns\\CustomMedia\\Media\\Fonts\\lowMyriad.TTF"
 local classColor = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[select(2, UnitClass("player"))] or RAID_CLASS_COLORS[select(2, UnitClass("player"))]
 local color = { r = 255 / 255, g = 255 / 255, b = 255 / 255 }
 
-local function SetFont(obj, font, size, style, r, g, b, sr, sg, sb, sox, soy)
-    obj:SetFont(font, size, style)
-    if sr and sg and sb then
-        obj:SetShadowColor(sr, sg, sb)
-    end
-    if sox and soy then
-        obj:SetShadowOffset(sox, soy)
-    end
-    if r and g and b then
-        obj:SetTextColor(r, g, b)
-    elseif r then
-        obj:SetAlpha(r)
-    end
-end
-
 local function FixButtons()
-    -- Minimap:SetFrameStrata("LOW")
-
-    MiniMapTracking:Hide()
-    MiniMapWorldMapButton:Hide()
-    if Fleischpflanzerl.IsRetail() then
-        MiniMapChallengeMode:ClearAllPoints()
-        MiniMapChallengeMode:SetPoint("BOTTOMRIGHT", Minimap, "TOPRIGHT", -2, -2)
-        QueueStatusMinimapButtonBorder:SetTexture()
-        QueueStatusMinimapButton:ClearAllPoints()
-        QueueStatusMinimapButton:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -2, 0)
-        GuildInstanceDifficulty:ClearAllPoints()
-        GuildInstanceDifficulty:SetParent(Minimap)
-        GuildInstanceDifficulty:SetPoint("TOPLEFT", Minimap, 1, 5)
-        GuildInstanceDifficulty:UnregisterAllEvents()
-        GuildInstanceDifficulty:Hide()
-        WorldMapFrame.BorderFrame.MaximizeMinimizeFrame:Hide()
-        WorldMapFrame.SidePanelToggle:Hide()
-    end
-    if Fleischpflanzerl.IsRetail() or Fleischpflanzerl.IsClassic() then
+    if Fleischpflanzerl.IsClassic() then
+        Minimap:SetFrameStrata("LOW")
+        MiniMapTracking:Hide()
+        MiniMapWorldMapButton:Hide()
         MiniMapInstanceDifficulty:ClearAllPoints()
         MiniMapInstanceDifficulty:SetPoint("TOPLEFT", Minimap, 1, 5)
         MiniMapInstanceDifficulty:UnregisterAllEvents()
         MiniMapInstanceDifficulty:Hide()
+        MiniMapMailIcon:Hide()
+
+        local MiniMapMailText = MiniMapMailFrame:CreateFontString(nil, "OVERLAY")
+        MiniMapMailText:SetFont(myFont, 13, "OUTLINE")
+        MiniMapMailText:SetPoint("BOTTOM", 0, 2)
+        MiniMapMailText:SetText("New Mail!")
+        MiniMapMailText:SetTextColor(1, 1, 1)
+        MiniMapMailBorder:SetTexture("")
+        MiniMapMailFrame:SetParent(Minimap)
+        MiniMapMailFrame:ClearAllPoints()
+        MiniMapMailFrame:SetPoint("BOTTOM", 0, -8)
+        MiniMapMailFrame:SetHeight(8)
+        MinimapNorthTag:SetAlpha(0)
+        -- MiniMapVoiceChatFrame:Hide()
     elseif TomCats_MiniMapInstanceDifficulty then
         TomCats_MiniMapInstanceDifficulty:ClearAllPoints()
         TomCats_MiniMapInstanceDifficulty:SetPoint("TOPLEFT", Minimap, 1, 5)
         -- TomCats_MiniMapInstanceDifficulty:UnregisterAllEvents()
         -- TomCats_MiniMapInstanceDifficulty:Hide()
     end
-    --MiniMapMailIcon:Hide()
     MiniMapMailIcon:SetTexture("Interface\\AddOns\\Fleischpflanzerl\\Modules\\mail.tga")
-    MiniMapMailBorder:SetTexture("")
-    MiniMapMailFrame:SetParent(Minimap)
-    MiniMapMailFrame:ClearAllPoints()
-    MiniMapMailFrame:SetPoint("BOTTOMRIGHT", 2, -8)
-    --MiniMapMailFrame:SetHeight(8)
-
-    -- local MiniMapMailText = MiniMapMailFrame:CreateFontString(nil, 'OVERLAY')
-    -- MiniMapMailText:SetFont(myfont, 13, 'OUTLINE')
-    -- MiniMapMailText:SetPoint('BOTTOM', 0, 2)
-    -- MiniMapMailText:SetText('New Mail!')
-    -- MiniMapMailText:SetTextColor(1, 1, 1)
-
-    --MiniMapVoiceChatFrame:Hide()
-    MinimapNorthTag:SetAlpha(0)
     if not IsInInstance() then
         --MinimapZoneTextButton:ClearAllPoints()
         --MinimapZoneTextButton:SetPoint("BOTTOM", Minimap, "TOP", -8, -10)
 
         --MinimapZoneText:SetPoint("TOP", MinimapZoneTextButton, "TOP", 9, -4)
         MinimapZoneText:SetPoint("TOP", Minimap, 0, -2)
-        MinimapZoneText:SetFont(myfont, 12, "OUTLINE")
+        MinimapZoneText:SetFont(myFont, 12, "OUTLINE")
         MinimapZoneText:SetTextColor(1, 1, 1, 0.6)
         MinimapZoneText:SetShadowOffset(0, 0)
     else
@@ -96,34 +66,52 @@ local function FixButtons()
     end
 end
 
+-- [[ Calendar Button Module ]]
+local function StyleCalendar()
+    if GameTimeFrame then
+        for i = 1, select("#", GameTimeFrame:GetRegions()) do
+            local texture = select(i, GameTimeFrame:GetRegions())
+            if texture and texture:GetObjectType() == "Texture" then
+                texture:SetTexture(nil)
+            end
+        end
+
+        GameTimeFrame:SetWidth(14)
+        GameTimeFrame:SetHeight(14)
+        GameTimeFrame:SetHitRectInsets(0, 0, 0, 0)
+        GameTimeFrame:ClearAllPoints()
+        GameTimeFrame:SetPoint("TOPRIGHT", Minimap, -2, -2)
+        if Fleischpflanzerl.IsClassic() then
+            GameTimeFrame:GetFontString():SetFont(myFont, 16, "OUTLINE")
+            GameTimeFrame:GetFontString():SetShadowOffset(0, 0)
+            GameTimeFrame:GetFontString():SetPoint("TOPRIGHT", GameTimeFrame)
+        end
+        if GameTimeFrame:GetFontString() then
+            for _, texture in pairs({
+                GameTimeCalendarEventAlarmTexture,
+                GameTimeCalendarInvitesTexture,
+                GameTimeCalendarInvitesGlow,
+            }) do
+                texture.Show = function()
+                    GameTimeFrame:GetFontString():SetTextColor(1, 0, 1)
+                end
+
+                texture.Hide = function()
+                    GameTimeFrame:GetFontString():SetTextColor(1, 1, 1, 0.6)
+                end
+            end
+        end
+    end
+end
+
 function FPMinimap:ADDON_LOADED()
     FixButtons()
-    SetFont(FriendsFont_Large, myfont, 12, nil, nil, nil, nil, nil, nil, nil, nil, nil)
-    SetFont(FriendsFont_Normal, myfont, 12, nil, nil, nil, nil, nil, nil, nil, nil, nil)
-    SetFont(FriendsFont_Small, myfont, 11, nil, nil, nil, nil, nil, nil, nil, nil, nil)
-    SetFont(FriendsFont_UserText, myfont, 11, nil, nil, nil, nil, nil, nil, nil, nil, nil)
-    if Fleischpflanzerl.IsRetail() then
-        hooksecurefunc(WorldMapFrame, "SetOverlayFrameLocation", function(self, frame, location)
-            if not frame.BountyName then
-                return
-            end
-            frame:ClearAllPoints()
-            frame:SetScale(0.9)
-            if location == LE_MAP_OVERLAY_DISPLAY_LOCATION_BOTTOM_LEFT then
-                frame:SetPoint("BOTTOMLEFT", frame.relativeFrame, 15, -4)
-            elseif location == LE_MAP_OVERLAY_DISPLAY_LOCATION_TOP_LEFT then
-                frame:SetPoint("TOPLEFT", frame.relativeFrame, 15, -15)
-            elseif location == LE_MAP_OVERLAY_DISPLAY_LOCATION_BOTTOM_RIGHT then
-                frame:SetPoint("BOTTOMRIGHT", frame.relativeFrame, 4, -4)
-            elseif location == LE_MAP_OVERLAY_DISPLAY_LOCATION_TOP_RIGHT then
-                frame:SetPoint("TOPRIGHT", frame.relativeFrame, -15, -15)
-            end
-        end)
-    end
+    StyleCalendar()
 end
 
 function FPMinimap:ZONE_CHANGED()
     FixButtons()
+    StyleCalendar()
 end
 
 function FPMinimap:ZONE_CHANGED_INDOORS()
@@ -140,18 +128,18 @@ function FPMinimap:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
 end
 
 --[[ Tracking Menu ]]
---
-local Minimap_OnMouseUp = Minimap:GetScript("OnMouseUp")
-Minimap:SetScript("OnMouseUp", function(this, button, ...)
-    if button == "RightButton" then
-        ToggleDropDownMenu(1, nil, MiniMapTrackingDropDown, "cursor")
-    else
-        return Minimap_OnMouseUp(this, button, ...)
-    end
-end)
+if Fleischpflanzerl.IsClassic() then
+    local Minimap_OnMouseUp = Minimap:GetScript("OnMouseUp")
+    Minimap:SetScript("OnMouseUp", function(this, button, ...)
+        if button == "RightButton" then
+            ToggleDropDownMenu(1, nil, MiniMapTrackingDropDown, "cursor")
+        else
+            return Minimap_OnMouseUp(this, button, ...)
+        end
+    end)
+end
 
 --[[ Coordinates Module ]]
---
 FPMinimap.Coord = CreateFrame("Button", nil, Minimap)
 FPMinimap.Coord:SetWidth(40)
 FPMinimap.Coord:SetHeight(14)
@@ -160,73 +148,40 @@ FPMinimap.Coord:RegisterForClicks("AnyUp")
 
 FPMinimap.Coord.Text = FPMinimap.Coord:CreateFontString(nil, "OVERLAY")
 FPMinimap.Coord.Text:SetPoint("CENTER", FPMinimap.Coord)
-FPMinimap.Coord.Text:SetFont(myfont, 16, "OUTLINE")
+FPMinimap.Coord.Text:SetFont(myFont, 16, "OUTLINE")
 FPMinimap.Coord.Text:SetTextColor(1, 1, 1, 0.6)
 FPMinimap.Coord.Text:SetShadowOffset(0, 0)
 
--- FPMinimap.Coord:SetScript('OnClick', function() ToggleFrame(WorldMapFrame) end)
+FPMinimap.Coord:SetScript("OnClick", function()
+    ToggleFrame(WorldMapFrame)
+end)
 
--- local total = 0
--- local function updatefunc(self, elapsed)
---     total = total + elapsed
---     if total <= 0.2 then
---         return
---     end
---     total = 0
---     local x, y = GetPlayerMapPosition('player')
---     self.Text:SetFormattedText('%.1f,%.1f', x * 100, y * 100)
--- end
-
--- function FPMinimap:PLAYER_ENTERING_WORLD()
---     --SetMapToCurrentZone()
---     if(IsInInstance()) then
---         self.Coord.Text:SetText()
---         self.Coord:SetScript('OnUpdate', nil)
---     else
---         self.Coord:SetScript('OnUpdate', updatefunc)
---     end
--- end
-
---[[ Calendar Button Module ]]
---
-for i = 1, select("#", GameTimeFrame:GetRegions()) do
-    local texture = select(i, GameTimeFrame:GetRegions())
-    if texture and texture:GetObjectType() == "Texture" then
-        texture:SetTexture(nil)
+local total = 0
+local function updatefunc(self, elapsed)
+    total = total + elapsed
+    if total <= 0.2 then
+        return
     end
+    total = 0
+    local x, y = GetPlayerMapPosition("player")
+    self.Text:SetFormattedText("%.1f,%.1f", x * 100, y * 100)
 end
 
-GameTimeFrame:SetWidth(14)
-GameTimeFrame:SetHeight(14)
-GameTimeFrame:SetHitRectInsets(0, 0, 0, 0)
-GameTimeFrame:ClearAllPoints()
-GameTimeFrame:SetPoint("TOPRIGHT", Minimap, -2, -2)
-if Fleischpflanzerl.IsRetail() then
-    GameTimeFrame:GetFontString():SetFont(myfont, 16, "OUTLINE")
-    GameTimeFrame:GetFontString():SetShadowOffset(0, 0)
-    GameTimeFrame:GetFontString():SetPoint("TOPRIGHT", GameTimeFrame)
-end
-
-for _, texture in pairs({
-    GameTimeCalendarEventAlarmTexture,
-    GameTimeCalendarInvitesTexture,
-    GameTimeCalendarInvitesGlow,
-}) do
-    texture.Show = function()
-        GameTimeFrame:GetFontString():SetTextColor(1, 0, 1)
-    end
-
-    texture.Hide = function()
-        GameTimeFrame:GetFontString():SetTextColor(1, 1, 1, 0.6)
+function FPMinimap:PLAYER_ENTERING_WORLD()
+    --SetMapToCurrentZone()
+    if IsInInstance() then
+        self.Coord.Text:SetText()
+        self.Coord:SetScript("OnUpdate", nil)
+    else
+        self.Coord:SetScript("OnUpdate", updatefunc)
     end
 end
 
 --[[ Clock Styling Module ]]
---
 if not IsAddOnLoaded("Blizzard_TimeManager") then
     LoadAddOn("Blizzard_TimeManager")
 end
-TimeManagerClockTicker:SetFont(myfont, 16, "OUTLINE")
+TimeManagerClockTicker:SetFont(myFont, 16, "OUTLINE")
 TimeManagerClockTicker:SetShadowOffset(0, 0)
 TimeManagerClockTicker:SetTextColor(1, 1, 1, 0.6) --(classColor.r, classColor.g, classColor.b)
 TimeManagerClockTicker:SetPoint("BOTTOMLEFT", TimeManagerClockButton)
@@ -246,7 +201,6 @@ TimeManagerAlarmFiredTexture.Hide = function()
 end
 
 --[[ Sexy Dungeon Difficulty ]]
---
 local rd = CreateFrame("Frame", nil, Minimap)
 rd:SetSize(24, 8)
 rd:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -257,37 +211,15 @@ rd:RegisterEvent("GUILD_PARTY_STATE_UPDATED")
 rd:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 
 local rdt = rd:CreateFontString(nil, "OVERLAY")
-rdt:SetPoint("TOP", Minimap, 0, -3.5)
-rdt:SetFont(myfont, 16, "OUTLINE")
+rdt:SetPoint("BOTTOMRIGHT", Minimap, -1, 0)
 rdt:SetTextColor(1, 1, 1)
 
 rd:SetScript("OnEvent", function()
-    if OrderHallCommandBar then
-        local b = OrderHallCommandBar
-        b:UnregisterAllEvents()
-        b:HookScript("OnShow", b.Hide)
-        b:Hide()
-        hooksecurefunc("OrderHall_CheckCommandBar", function()
-            if OrderHallCommandBar then
-                OrderHallCommandBar:Hide()
-            end
-        end)
-    end
-
-    if GarrisonLandingPageMinimapButton then
-        local c = GarrisonLandingPageMinimapButton
-        c:UnregisterAllEvents()
-        c:HookScript("OnShow", c.Hide)
-        c:Hide()
-        --GarrisonLandingPageTutorialBox:Hide()
-    end
-
     if UIWidgetTopCenterContainerFrame then
         UIWidgetTopCenterContainerFrame:SetPoint("TOP", UIParent, 0, -3.5)
     end
-
+    rdt:SetFont(myLowerFont, 16, "OUTLINE")
     local _, _, difficulty, _, maxPlayers = GetInstanceInfo()
-    rdt:SetFont(myfont, 16, "OUTLINE")
     if difficulty == 0 then
         rdt:SetText("")
         SetCVar("chatBubbles", 1)
@@ -309,7 +241,7 @@ rd:SetScript("OnEvent", function()
         rdt:SetText("LFR")
     elseif difficulty == 8 then
         rdt:SetText("5 M+")
-        SetCVar("chatBubbles", 0)
+        SetCVar("chatBubbles", 1)
     elseif difficulty == 9 then
         rdt:SetText("40")
     elseif difficulty == 11 then
@@ -336,7 +268,7 @@ rd:SetScript("OnEvent", function()
         rdt:SetText("5 M")
     end
     if Fleischpflanzerl.IsRetail() then
-        if GuildInstanceDifficulty:IsShown() then
+        if GuildInstanceDifficulty and GuildInstanceDifficulty:IsShown() then
             rdt:SetTextColor(color.r, color.g, color.b, 0.6)
         else
             rdt:SetTextColor(color.r, color.g, color.b, 0.6)

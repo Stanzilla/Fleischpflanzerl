@@ -3,7 +3,7 @@
 local addonName, Fleischpflanzerl = ...
 
 function Fleischpflanzerl.IsClassic()
-    return LE_EXPANSION_WRATH_OF_THE_LICH_KING == 2
+    return WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
 end
 
 function Fleischpflanzerl.IsClassicEra()

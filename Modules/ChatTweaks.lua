@@ -49,7 +49,7 @@ CHAT_TAB_HIDE_DELAY = 0
 CHAT_FRAME_TAB_ALERTING_MOUSEOVER_ALPHA = 1
 CHAT_FRAME_TAB_ALERTING_NOMOUSE_ALPHA = 0
 
--- Making the chat background invisibile
+-- Making the chat background invisible
 for index, value in ipairs(CHAT_FRAME_TEXTURES) do
     for i = 1, NUM_CHAT_WINDOWS, 1 do
         _G["ChatFrame" .. i .. value]:Hide()

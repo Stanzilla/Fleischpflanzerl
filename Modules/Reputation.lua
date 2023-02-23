@@ -20,9 +20,9 @@ loginFrame:SetScript("OnEvent", function()
             end
         end
     end
-    if IsAddOnLoaded("ViragDevTool") then
-        ViragDevTool_AddData(paragonReps, "paragonReps")
-    end
+    -- if IsAddOnLoaded("ViragDevTool") then
+    --     ViragDevTool_AddData(paragonReps, "paragonReps")
+    -- end
 end)
 
 local frame = CreateFrame("Frame")
