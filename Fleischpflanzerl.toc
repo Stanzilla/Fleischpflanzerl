@@ -7,6 +7,7 @@
 ## Author: Stanzilla
 ## X-Credits: Your mum
 ## Version: 1.8
+## IconTexture: 134021
 ## X-Category: Interface Enhancements
 
 Core.lua
