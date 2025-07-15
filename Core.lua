@@ -1,9 +1,9 @@
--- luacheck: globals WOW_PROJECT_ID WOW_PROJECT_CLASSIC
+-- luacheck: globals WOW_PROJECT_ID WOW_PROJECT_CLASSIC WOW_PROJECT_MISTS_CLASSIC
 
 local addonName, Fleischpflanzerl = ...
 
 function Fleischpflanzerl.IsClassic()
-    return WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
+    return WOW_PROJECT_ID == WOW_PROJECT_MISTS_CLASSIC
 end
 
 function Fleischpflanzerl.IsClassicEra()

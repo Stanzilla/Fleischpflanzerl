@@ -8,4 +8,5 @@
 <Script file="Modules\Reputation.lua"/>
 <Script file="Modules\Slashhandler.lua"/>
 <Script file="Modules\Vendor.lua"/>
+<Script file="Modules\SellEpics.lua"/>
 </Ui>
