@@ -31,6 +31,10 @@ local function FixButtons()
         MiniMapInstanceDifficulty:SetPoint("TOPLEFT", Minimap, 1, 5)
         MiniMapInstanceDifficulty:UnregisterAllEvents()
         MiniMapInstanceDifficulty:Hide()
+        MiniMapLFGFrameBorder:SetTexture()
+        MiniMapLFGFrameIcon:ClearAllPoints()
+        MiniMapLFGFrameIcon:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -2, 0)
+        MiniMapLFGFrameIcon:SetFrameStrata("FULLSCREEN")
         MiniMapMailIcon:Hide()
 
         local MiniMapMailText = MiniMapMailFrame:CreateFontString(nil, "OVERLAY")
@@ -45,13 +49,14 @@ local function FixButtons()
         MiniMapMailFrame:SetHeight(8)
         MinimapNorthTag:SetAlpha(0)
         -- MiniMapVoiceChatFrame:Hide()
+        MiniMapMailIcon:SetTexture("Interface\\AddOns\\Fleischpflanzerl\\Modules\\mail.tga")
+
     elseif TomCats_MiniMapInstanceDifficulty then
         TomCats_MiniMapInstanceDifficulty:ClearAllPoints()
         TomCats_MiniMapInstanceDifficulty:SetPoint("TOPLEFT", Minimap, 1, 5)
         -- TomCats_MiniMapInstanceDifficulty:UnregisterAllEvents()
         -- TomCats_MiniMapInstanceDifficulty:Hide()
     end
-    MiniMapMailIcon:SetTexture("Interface\\AddOns\\Fleischpflanzerl\\Modules\\mail.tga")
     if not IsInInstance() then
         --MinimapZoneTextButton:ClearAllPoints()
         --MinimapZoneTextButton:SetPoint("BOTTOM", Minimap, "TOP", -8, -10)
@@ -178,8 +183,14 @@ function FPMinimap:PLAYER_ENTERING_WORLD()
 end
 
 --[[ Clock Styling Module ]]
-if not IsAddOnLoaded("Blizzard_TimeManager") then
-    LoadAddOn("Blizzard_TimeManager")
+if C_AddOns then
+    if not C_AddOns.IsAddOnLoaded("Blizzard_TimeManager") then
+        C_AddOns. LoadAddOn("Blizzard_TimeManager")
+    else
+        if not IsAddOnLoaded("Blizzard_TimeManager") then
+            LoadAddOn("Blizzard_TimeManager")
+        end
+    end
 end
 TimeManagerClockTicker:SetFont(myFont, 16, "OUTLINE")
 TimeManagerClockTicker:SetShadowOffset(0, 0)
@@ -211,14 +222,14 @@ rd:RegisterEvent("GUILD_PARTY_STATE_UPDATED")
 rd:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 
 local rdt = rd:CreateFontString(nil, "OVERLAY")
-rdt:SetPoint("BOTTOMRIGHT", Minimap, -1, 0)
-rdt:SetTextColor(1, 1, 1)
+rdt:SetPoint("BOTTOMRIGHT", Minimap, -2, 0)
+rdt:SetTextColor(1, 1, 1, .6)
 
 rd:SetScript("OnEvent", function()
     if UIWidgetTopCenterContainerFrame then
         UIWidgetTopCenterContainerFrame:SetPoint("TOP", UIParent, 0, -3.5)
     end
-    rdt:SetFont(myLowerFont, 16, "OUTLINE")
+    rdt:SetFont(myFont, 16, "OUTLINE")
     local _, _, difficulty, _, maxPlayers = GetInstanceInfo()
     if difficulty == 0 then
         rdt:SetText("")

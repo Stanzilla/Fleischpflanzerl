@@ -51,17 +51,6 @@ if Fleischpflanzerl.IsRetail() then
     table.insert(PAPERDOLL_STATCATEGORIES[1].stats, { stat = "MOVESPEED" })
 end
 
--- -- Addon Config Scroll Fix
--- local function func(self, val)
---     ScrollFrameTemplate_OnMouseWheel(InterfaceOptionsFrameAddOnsList, val)
--- end
-
--- for i = 1, #InterfaceOptionsFrameAddOns.buttons do
---     local f = _G["InterfaceOptionsFrameAddOnsButton" .. i]
---     f:EnableMouseWheel()
---     f:SetScript("OnMouseWheel", func)
--- end
-
 -- Bypass the buggy cancel cinematic confirmation dialog
 hooksecurefunc(CinematicFrame.closeDialog, "Show", function()
     CinematicFrame.closeDialog:Hide()

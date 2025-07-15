@@ -69,10 +69,7 @@
         "GetGuildBankMoney",
         "GetGuildBankWithdrawMoney",
         "GetNumGroupMembers",
-        "GetItemInfo",
         "Minimap",
-        "LoadAddOn",
-        "IsAddOnLoaded",
         "IsInInstance",
         "UnitClass",
         "GetInstanceInfo",
@@ -89,19 +86,48 @@
         "WOW_PROJECT_ID",
         "WOW_PROJECT_CLASSIC",
         "WOW_PROJECT_MAINLINE",
-        "GetItemIcon",
         "tinsert",
         "GetScreenWidth",
         "GetScreenHeight",
         "STANDARD_TEXT_FONT",
         "sin",
         "cos",
-        "GetTime"
+        "GetTime",
+        "CreateTexturePool",
+        "GetActionInfo",
+        "GetMacroItem",
+        "GetMacroSpell",
+        "IsShiftKeyDown",
+        "IsControlKeyDown",
+        "IsAltKeyDown",
+        "GetBindingKey",
+        "MerchantFrame",
+        "StaticPopup_Show",
+        "StaticPopup_Hide",
+        "StaticPopup_Visible",
+        "STATICPOPUP_NUMDIALOGS",
+        "StaticPopup_OnClick",
+        "WOW_PROJECT_MISTS_CLASSIC"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",
         "param-type-mismatch",
         "param-type-mismatch",
         "param-type-mismatch"
+    ],
+    "Lua.runtime.version": "Lua 5.1",
+    "Lua.runtime.builtin": {
+        "basic": "disable",
+        "debug": "disable",
+        "io": "disable",
+        "math": "disable",
+        "os": "disable",
+        "package": "disable",
+        "string": "disable",
+        "table": "disable",
+        "utf8": "disable"
+    },
+    "Lua.workspace.library": [
+        "~/.vscode-server/extensions/ketho.wow-api-0.20.8/Annotations/Core"
     ]
 }

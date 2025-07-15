@@ -7,11 +7,11 @@ local paragonBagIcon = CreateAtlasMarkup("ParagonReputation_Bag")
 local loginFrame = CreateFrame("Frame")
 loginFrame:RegisterEvent("PLAYER_LOGIN")
 loginFrame:SetScript("OnEvent", function()
-    for factionIndex = 1, GetNumFactions() do
+    for factionIndex = 1, C_Reputation.GetNumFactions() do
         local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus =
-            GetFactionInfo(factionIndex)
+            C_Reputation.GetFactionDataByIndex(factionIndex)
         if not isHeader and name then
-            if C_Reputation and C_Reputation.IsFactionParagon(factionID) then
+            if factionID and C_Reputation.IsFactionParagon(factionID) then
                 local currentValue, threshold, _, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID)
                 while currentValue > threshold do
                     currentValue = currentValue - threshold
@@ -29,9 +29,9 @@ local frame = CreateFrame("Frame")
 frame:RegisterEvent("UPDATE_FACTION")
 frame:SetScript("OnEvent", function()
     local difference
-    for factionIndex = 1, GetNumFactions() do
+    for factionIndex = 1, C_Reputation.GetNumFactions() do
         local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus =
-            GetFactionInfo(factionIndex)
+            C_Reputation.GetFactionDataByIndex(factionIndex)
         if not isHeader and name then
             if reps[name] then
                 difference = barValue - reps[name]
